@@ -13,14 +13,6 @@ public class GuiMagic {
         frame.setPreferredSize(new Dimension(width + wp, height + hp));
     }
 
-    public static void  setFrameSize(JFrame frame, Dimension size){
-        setFrameSize(frame, size.width, size.height);
-    }
-
-    public static void setFullWindow(JFrame frame){
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-    }
-
     public static final String WIN_LOOKS = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
 
     public static void setWindowTheme(String set){
