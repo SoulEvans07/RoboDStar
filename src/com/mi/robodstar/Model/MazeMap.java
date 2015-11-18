@@ -18,6 +18,11 @@ public class MazeMap {
         this(size.getWidth(), size.getHeight());
     }
 
+    public MazeMap(String mapFilePath){
+        // TODO: read File
+        // TODO: build map from File
+    }
+
     public MPoint getSize() {
         return size;
     }
