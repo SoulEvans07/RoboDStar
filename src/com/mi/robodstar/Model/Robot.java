@@ -4,11 +4,15 @@ import com.mi.robodstar.Components.MPoint;
 import com.mi.robodstar.Defaults.Config;
 import com.mi.robodstar.Defaults.Reference;
 
+import java.awt.*;
+
 public class Robot {
     MPoint pos;
     MazeMap radar;  // field of view
     MazeMap hMap;   // heuritic map
 
+    // View specific
+    Color color;
 
     public Robot(){
         radar = new MazeMap(Config.FOV, Config.FOV);   // field of view: 5 wide 5 high

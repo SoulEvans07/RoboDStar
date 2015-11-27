@@ -1,6 +1,6 @@
 package com.mi.robodstar.Model;
 
-import com.mi.robodstar.Defaults.Reference;
+import com.mi.robodstar.Defaults.Config;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ public class TestChamber {
     private ArrayList<Robot> robots;
 
     public TestChamber(){
-        chamber = new MazeMap(Reference.MAP_PATH); // init map
+        chamber = new MazeMap(Config.getMapPath()); // init map
     }
 
     public void addRobot(Robot r){
