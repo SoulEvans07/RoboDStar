@@ -1,7 +1,7 @@
 package com.mi.robodstar.Model;
 
 import com.mi.robodstar.Components.MPoint;
-import com.mi.robodstar.Defaults.Options;
+import com.mi.robodstar.Defaults.Config;
 import com.mi.robodstar.Defaults.Reference;
 
 public class Robot {
@@ -11,7 +11,7 @@ public class Robot {
 
 
     public Robot(){
-        radar = new MazeMap(Options.FOV, Options.FOV);   // field of view: 5 wide 5 high
+        radar = new MazeMap(Config.FOV, Config.FOV);   // field of view: 5 wide 5 high
         hMap = new MazeMap(Reference.HMAP_PATH);
     }
 

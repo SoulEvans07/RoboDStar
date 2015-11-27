@@ -17,4 +17,7 @@ public class Reference {
     public static final char OBST_TILE = '1';
     public static final char GOAL_TILE = '2';
     public static final char START_TILE = '$';
+
+    // Default configurations
+    public static final int DEF_FOV = 5;
 }
