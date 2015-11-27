@@ -2,7 +2,6 @@ package com.mi.robodstar.Model;
 
 import com.mi.robodstar.Components.MPoint;
 import com.mi.robodstar.Defaults.Config;
-import com.mi.robodstar.Defaults.Reference;
 
 import java.awt.*;
 
@@ -15,8 +14,8 @@ public class Robot {
     Color color;
 
     public Robot(){
-        radar = new MazeMap(Config.FOV, Config.FOV);   // field of view: 5 wide 5 high
-        hMap = new MazeMap(Reference.HMAP_PATH);
+        radar = new MazeMap(Config.getFOV(), Config.getFOV());   // field of view: 5 wide 5 high
+        hMap = new MazeMap(Config.getHeuriticMapPath());
     }
 
     public Robot(MPoint sPos){

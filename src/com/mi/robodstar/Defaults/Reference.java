@@ -9,8 +9,8 @@ public class Reference {
     public static final int WIN_HBORDER = 10;
 
     // Asset paths
-    public static final String HMAP_PATH = "";  // TODO: get default path
-    public static final String MAP_PATH = "";    // TODO: do map files
+    public static final String HMAP_PATH = "/assets/hmap1.txt";  // TODO: get default path
+    public static final String MAP_PATH = "/assets/arenas/map1.txt";    // TODO: do map files
 
     // Map decoding
     public static final char FREE_TILE = '0';
