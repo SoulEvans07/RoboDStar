@@ -20,10 +20,4 @@ public class TestChamber {
         r.pos = chamber.searchPoint(Reference.START_TILE);
         robots.add(r);
     }
-
-    public void addRobot(){
-        Robot temp = new Robot();
-        temp.pos = chamber.searchPoint(Reference.START_TILE);
-        robots.add(temp);
-    }
 }

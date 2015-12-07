@@ -1,6 +1,7 @@
 package com.mi.robodstar.Model;
 
 import com.mi.robodstar.Components.MPoint;
+import com.mi.robodstar.Defaults.Reference;
 import com.mi.robodstar.Utility.LogHelper;
 
 import java.io.BufferedReader;
@@ -19,6 +20,7 @@ public class MazeMap {
     public MazeMap(int width, int height){
         this.size = new MPoint(width, height);
         this.tiles = new ArrayList<>();
+        this.map = new ArrayList<>();
     }
 
     // empty map
@@ -28,7 +30,8 @@ public class MazeMap {
 
     // map from txt
     public MazeMap(String mapFilePath) {
-        tiles = new ArrayList<Boolean>();
+        this.tiles = new ArrayList<Boolean>();
+        this.map = new ArrayList<>();
 
         String line;
         BufferedReader br = null;
@@ -38,17 +41,22 @@ public class MazeMap {
             br = new BufferedReader(ir);
 
             int row = 0;
+            int length = 0;
             while ((line = br.readLine()) != null) {
                 map.add(line);  // save txt into array so we don't have to open it after
                 for (int i = 0; i < line.length(); i++) {
-                    boolean temp = false;
-                    if (line.charAt(i) == '0')
-                        temp = true;
+                    boolean temp = true;
+                    if (line.charAt(i) == Reference.OBST_TILE)
+                        temp = false;
                     tiles.add(temp);
                 }
+                if(length != 0 && line.length() != length)
+                    LogHelper.error("Hibás sor: " + row+1);
+                else
+                    length = line.length();
                 row++;
             }
-            size.set(line.length(), row);
+            size = new MPoint(length, row);
         } catch(IOException e) {
             e.printStackTrace();
         } finally {
@@ -83,5 +91,21 @@ public class MazeMap {
         if(isOut(p))
             LogHelper.error("Out of Map");
         return tiles.get(p.getHeight() * size.getWidth() + p.getWidth());
+    }
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    public void printMap2Console(){
+        for(int i = 0; i < map.size(); i++){
+            System.out.println(map.get(i));
+        }
+    }
+
+    public void printTiles2Console(){
+        for (int y = 0; y < size.getHeight(); y++) {
+            for (int x = 0; x < size.getWidth(); x++)
+                System.out.print(tiles.get(y * size.getWidth() + x) ? ' ' : '#');
+            System.out.println();
+        }
     }
 }

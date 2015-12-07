@@ -15,7 +15,7 @@ public class Config{
         C_MAP_PATH = Reference.MAP_PATH;
     }
 
-    // TODO: after this load maps
+    // TODO: after this reload maps
     public static void setMapPaths(String pathM, String pathH){
         C_HMAP_PATH = pathH;
         C_MAP_PATH = pathM;

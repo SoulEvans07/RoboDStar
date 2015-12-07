@@ -10,7 +10,7 @@ public class Reference {
 
     // Asset paths
     public static final String HMAP_PATH = "/assets/hmap1.txt";  // TODO: get default path
-    public static final String MAP_PATH = "/assets/arenas/map1.txt";    // TODO: do map files
+    public static final String MAP_PATH = "/assets//map1.txt";    // TODO: do map files
 
     // Map decoding
     public static final char FREE_TILE = '0';
@@ -20,4 +20,7 @@ public class Reference {
 
     // Default configurations
     public static final int DEF_FOV = 5;
+
+    // Clock configurations
+    public static final int TIMER_TICK = 1000; // means the clock is on 1 tick/second
 }
