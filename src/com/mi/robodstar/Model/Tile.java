@@ -9,8 +9,8 @@ public class Tile {
         state = startState;
     }
 
-    public void setState(int state){
-        this.state=state;
+    public void setState(int s){
+        state=s;
     }
     public int getState(){
         return state;
