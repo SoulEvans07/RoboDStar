@@ -16,12 +16,12 @@ public class Gui extends JFrame {
 
     public Gui(){
         GuiMagic.setWindowTheme(GuiMagic.WIN_LOOKS);
-        GuiMagic.setFrameSize(this, 100, 100);
 
         testChamber = new TestChamber();
         setVisible(true);
         gamePanel = new GamePanel(this,testChamber);
 
+        GuiMagic.setFrameSize(this, gamePanel.getWidth(), gamePanel.getHeight()+this.getInsets().top);
         initFrame();
         setVisible(true);
     }

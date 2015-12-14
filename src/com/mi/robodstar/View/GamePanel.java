@@ -12,11 +12,12 @@ import java.awt.*;
 public class GamePanel extends JPanel {
     private MyCanvas canvas;
     private Gui parent;
-
+    private int height;
+    private int width;
     public GamePanel(Gui p, TestChamber testChamber){
         parent = p;
         setLayout(new BorderLayout());
-        canvas = new MyCanvas(parent, testChamber);
+        canvas = new MyCanvas(this, testChamber);
         this.add(canvas, BorderLayout.CENTER);
         canvas.paint(parent.getGraphics());
         invalidate();
@@ -25,4 +26,18 @@ public class GamePanel extends JPanel {
     public void update(){
         canvas.paint(parent.getGraphics());
     }
+
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
+    }
+    public void setWidth(int x){
+        width=x;
+    }
+    public void setHeight(int y){
+        height=y;
+    }
+
 }
