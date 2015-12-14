@@ -14,10 +14,10 @@ public class Gui extends JFrame {
     private TestChamber testChamber;
     //private MenuPanel menuPanel;
 
-    public Gui(){
+    public Gui(TestChamber testChamber){
         GuiMagic.setWindowTheme(GuiMagic.WIN_LOOKS);
 
-        testChamber = new TestChamber();
+        this.testChamber = testChamber;
         setVisible(true);
         gamePanel = new GamePanel(this,testChamber);
 

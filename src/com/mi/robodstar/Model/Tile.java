@@ -3,10 +3,17 @@ package com.mi.robodstar.Model;
 import java.awt.*;
 
 public class Tile {
-    public int state;
+    private int state;
 
     public Tile(int startState){
         state = startState;
+    }
+
+    public void setState(int state){
+        this.state=state;
+    }
+    public int getState(){
+        return state;
     }
 
     public Color getColor(){
@@ -40,7 +47,6 @@ public class Tile {
                 ret = new Color(0, 255 , 0);
                 break;
         }
-
         return ret;
     }
 

@@ -15,7 +15,8 @@ public class TestChamber {
         robots = new ArrayList<>();
         chamber = new MazeMap(Config.getMapPath()); // init map
         goal = chamber.searchPoint(Tile.GOAL_CHAR);
-        robots.add(new Robot(chamber.searchPoint(Tile.START_CHAR), new Color(250, 0, 0)));
+        robots.add(new Robot(chamber.searchPoint(Tile.START_CHAR)));
+        robots.add(new Robot(chamber.searchPoint(Tile.START_CHAR)));
     }
 
     public MPoint getSize(){
@@ -25,6 +26,13 @@ public class TestChamber {
     public void addRobot(Robot r){
         r.pos = chamber.searchPoint(Tile.START_CHAR);
         robots.add(r);
+        int index = robots.indexOf(r);
+        if (index == 0){
+            chamber.getTile(r.pos.getWidth(),r.pos.getHeight()).setState(2);
+        }
+        if (index == 1){
+            chamber.getTile(r.pos.getWidth(),r.pos.getHeight()).setState(4);
+        }
     }
 
     public ArrayList<Robot> getRobots(){

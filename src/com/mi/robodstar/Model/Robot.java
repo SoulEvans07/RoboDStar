@@ -11,24 +11,15 @@ public class Robot {
     MazeMap hMap;   // heuritic map
 
     // View specific
-    public Color color;
 
-    public Robot(MPoint sPos, Color c){
+    public Robot(MPoint sPos){
         pos = sPos;
-        color = c;
 
         radar = new MazeMap(Config.getFOV(), Config.getFOV());   // field of view: 5 wide 5 high
         hMap = new MazeMap(Config.getHeuriticMapPath());
     }
 
-    public Robot(MPoint sPos){
-        this(sPos, new Color(0,0,250));
-    }
-
     public Robot(){
-        this(new MPoint(0, 0), new Color(0, 0, 250));
+        this(new MPoint(0, 0));
     }
-
-
-
 }

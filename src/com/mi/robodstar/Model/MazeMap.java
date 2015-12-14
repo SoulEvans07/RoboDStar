@@ -101,11 +101,6 @@ public class MazeMap {
                 (p.getHeight() < 0) || (p.getHeight() > size.getHeight());
     }
 
-    public boolean isFree(MPoint p){
-        if(isOut(p))
-            LogHelper.error("Out of Map");
-        return tiles.get(p.getHeight() * size.getWidth() + p.getWidth()).state > Tile.OBSTACLE;
-    }
     public Tile getTile(int x, int y){
         return tiles.get(y * size.getWidth() + x);
     }
@@ -121,7 +116,7 @@ public class MazeMap {
     public void printTiles2Console(){
         for (int y = 0; y < size.getHeight(); y++) {
             for (int x = 0; x < size.getWidth(); x++)
-                System.out.print(tiles.get(y * size.getWidth() + x).state > Tile.OBSTACLE ? Tile.FREE_CHAR : Tile.OBST_CHAR);
+                System.out.print(tiles.get(y * size.getWidth() + x).getState() > Tile.OBSTACLE ? Tile.FREE_CHAR : Tile.OBST_CHAR);
             System.out.println();
         }
     }
