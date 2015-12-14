@@ -18,11 +18,12 @@ public class Gui extends JFrame {
     public Gui(){
         GuiMagic.setWindowTheme(GuiMagic.WIN_LOOKS);
         GuiMagic.setFrameSize(this, 100, 100);
+
         testChamber = new TestChamber();
-        testChamber.addRobot(new Robot());
+        testChamber.addRobot(new Robot());setVisible(true);
+        gamePanel = new GamePanel(this,testChamber);
 
         initFrame();
-
         setVisible(true);
     }
 
@@ -34,6 +35,7 @@ public class Gui extends JFrame {
         this.addWindowListener(new exitApp());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.setContentPane(gamePanel);
     }
 
     private class exitApp extends WindowAdapter {

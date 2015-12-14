@@ -3,6 +3,7 @@ package com.mi.robodstar.View;
 import com.mi.robodstar.Components.MPoint;
 import com.mi.robodstar.Model.*;
 import com.mi.robodstar.Model.Robot;
+import com.mi.robodstar.Utility.LogHelper;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class MyCanvas extends java.awt.Canvas{
     private Color lineColor;
     private Color wallColor;
     private Color fieldColor;
+    private Color goalColor;
     public MyCanvas(Gui parent, TestChamber testChamber) {
         super();
         this.parent = parent;
@@ -28,43 +30,51 @@ public class MyCanvas extends java.awt.Canvas{
         lineWidth=2;
         tileSize=16;
         lineColor = new Color(100,100,100);
-        wallColor = new Color(238,236,225);
-        fieldColor = new Color(87, 43,0);
+        fieldColor = new Color(238,236,225);
+        wallColor = new Color(87, 43,0);
+        goalColor = new Color(200,200,0);
     }
 
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g);
-        drawMaze(g);
+        Graphics2D g2=(Graphics2D)g;
+        drawMaze(g2);
     }
 
-    void drawMaze(Graphics g){
+    void drawMaze(Graphics2D g){
         int offset=tileSize+lineWidth;
         MPoint temp = new MPoint(0,0);
         Robot robot;
         ArrayList<Robot> robots = testChamber.getRobots();
         g.setColor(lineColor);
-        g.drawRect(0,0,offset*width,offset*height);
+        g.fillRect(0,0,offset*width,offset*height);
+        Color tempC = new Color(0,0,0);
         for(int i = 0; i<width; i++){
             for (int j = 0; j< height; j++){
                 temp.set(i,j);
+                LogHelper.error("---" + i + " " + j);
                 if(testChamber.getChamber().isFree(temp)){
-                    g.setColor(fieldColor);
-                    g.drawRect(i*offset,j*offset,tileSize,tileSize);
+                    tempC=fieldColor;
                 }
                 else{
-                    g.setColor(wallColor);
-                    g.drawRect(i*offset,j*offset,tileSize,tileSize);
+                    tempC=wallColor;
+                }
+
+                if(testChamber.getGoal().equals(temp)){
+                //if(testChamber.getGoal().getWidth()==i && testChamber.getGoal().getHeight()==j ){
+                    tempC = goalColor;
+                    LogHelper.error("anyad");
                 }
 
                 for(int k = 0; k < robots.size(); k++){
                     robot = robots.get(k);
                     if(robot.pos.equals(temp)){
-                        g.setColor(robot.color);
-                        g.drawRect(i*offset,j*offset,tileSize,tileSize);
+                        tempC = robot.color;
                     }
                 }
+                g.setColor(tempC);
+                g.fillRect(i*offset,j*offset,tileSize,tileSize);
             }
         }
     }
