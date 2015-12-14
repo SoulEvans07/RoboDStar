@@ -36,14 +36,16 @@ public class MyCanvas extends java.awt.Canvas{
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor(Color.black);
+        drawMaze(g);
     }
 
-    void drawMesh(Graphics g){
+    void drawMaze(Graphics g){
         int offset=tileSize+lineWidth;
         MPoint temp = new MPoint(0,0);
         Robot robot;
         ArrayList<Robot> robots = testChamber.getRobots();
+        g.setColor(lineColor);
+        g.drawRect(0,0,offset*width,offset*height);
         for(int i = 0; i<width; i++){
             for (int j = 0; j< height; j++){
                 temp.set(i,j);
