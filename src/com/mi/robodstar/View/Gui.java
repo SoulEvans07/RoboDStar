@@ -40,9 +40,11 @@ public class Gui extends JFrame {
     private class exitApp extends WindowAdapter {
         public void windowClosing(WindowEvent e){
             requestFocus(false); // letiltjuk, hogy ESC-re ne hozza be a pausePanelt, amíg fent van az OptionPane
-            int i = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
+            // TODO: LATER ENABLE IT!!!
+            /*int i = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
                     "Confirm Exit", JOptionPane.YES_NO_OPTION);
-            if(i == 0) {
+             if(i == 0) {*/
+            if(true){
                 Main.exitGame();
             }
             requestFocus(); // visszaadjuk, ha nem léptünk ki

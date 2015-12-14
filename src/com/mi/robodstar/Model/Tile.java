@@ -9,7 +9,40 @@ public class Tile {
         state = startState;
     }
 
-    // Map decoding
+    public Color getColor(){
+        Color ret;
+        switch (state){
+            case OBSTACLE:
+                ret = wallColor;
+                break;
+            case FREE:
+                ret = freeColor;
+                break;
+            case ROBO1:
+                ret = robo1Color;
+                break;
+            case ROBO1_TRACE:
+                ret = robo1TraceColor;
+                break;
+            case ROBO2:
+                ret = robo2Color;
+                break;
+            case ROBO2_TRACE:
+                ret = robo2TraceColor;
+                break;
+            case JOINT_TRACE:
+                ret = jointTraceColor;
+                break;
+            case GOAL:
+                ret = goalColor;
+                break;
+            default:
+                ret = new Color(0, 255 , 0);
+                break;
+        }
+
+        return ret;
+    }
 
     public static final char START_CHAR = 'S';
 
