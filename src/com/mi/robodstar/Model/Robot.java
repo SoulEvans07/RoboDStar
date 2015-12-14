@@ -6,12 +6,12 @@ import com.mi.robodstar.Defaults.Config;
 import java.awt.*;
 
 public class Robot {
-    MPoint pos;
+    public MPoint pos;
     MazeMap radar;  // field of view
     MazeMap hMap;   // heuritic map
 
     // View specific
-    Color color;
+    public Color color;
 
     public Robot(){
         radar = new MazeMap(Config.getFOV(), Config.getFOV());   // field of view: 5 wide 5 high
@@ -22,5 +22,7 @@ public class Robot {
         super();
         pos = sPos; // set starting point
     }
+
+
 
 }

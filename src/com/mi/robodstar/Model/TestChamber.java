@@ -16,8 +16,20 @@ public class TestChamber {
         goal = chamber.searchPoint(Reference.GOAL_TILE);
     }
 
+    public MPoint getSize(){
+        return chamber.getSize();
+    }
+
     public void addRobot(Robot r){
         r.pos = chamber.searchPoint(Reference.START_TILE);
         robots.add(r);
+    }
+
+    public ArrayList<Robot> getRobots(){
+        return robots;
+    }
+
+    public MazeMap getChamber() {
+        return chamber;
     }
 }

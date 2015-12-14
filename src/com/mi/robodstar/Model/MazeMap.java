@@ -33,6 +33,7 @@ public class MazeMap {
         this.tiles = new ArrayList<Boolean>();
         this.map = new ArrayList<>();
 
+
         String line;
         BufferedReader br = null;
         try {
@@ -51,7 +52,7 @@ public class MazeMap {
                     tiles.add(temp);
                 }
                 if(length != 0 && line.length() != length)
-                    LogHelper.error("Hibás sor: " + row+1);
+                    LogHelper.error("Hibas sor: " + row+1);
                 else
                     length = line.length();
                 row++;
