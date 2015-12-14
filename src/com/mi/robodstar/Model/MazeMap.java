@@ -106,6 +106,9 @@ public class MazeMap {
             LogHelper.error("Out of Map");
         return tiles.get(p.getHeight() * size.getWidth() + p.getWidth()).state > Tile.OBSTACLE;
     }
+    public Tile getTile(int x, int y){
+        return tiles.get(y * size.getWidth() + x);
+    }
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
