@@ -2,9 +2,8 @@ package com.mi.robodstar.Model;
 
 import com.mi.robodstar.Components.MPoint;
 import com.mi.robodstar.Defaults.Config;
-import com.mi.robodstar.Defaults.Reference;
-import com.mi.robodstar.Utility.LogHelper;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class TestChamber {
@@ -15,8 +14,8 @@ public class TestChamber {
     public TestChamber(){
         robots = new ArrayList<>();
         chamber = new MazeMap(Config.getMapPath()); // init map
-        goal = chamber.searchPoint(Reference.GOAL_TILE);
-        LogHelper.error(goal.getWidth() + " " + goal.getHeight());
+        goal = chamber.searchPoint(Tile.GOAL_CHAR);
+        robots.add(new Robot(chamber.searchPoint(Tile.START_CHAR), new Color(250, 0, 0)));
     }
 
     public MPoint getSize(){
@@ -24,7 +23,7 @@ public class TestChamber {
     }
 
     public void addRobot(Robot r){
-        r.pos = chamber.searchPoint(Reference.START_TILE);
+        r.pos = chamber.searchPoint(Tile.START_CHAR);
         robots.add(r);
     }
 
@@ -37,7 +36,6 @@ public class TestChamber {
     }
 
     public MPoint getGoal(){
-        LogHelper.error("gg"+goal.getWidth() + " " + goal.getHeight());
         return goal;
     }
 }

@@ -12,12 +12,6 @@ public class Reference {
     public static final String HMAP_PATH = "/assets/hmap1.txt";  // TODO: get default path
     public static final String MAP_PATH = "/assets//map1.txt";    // TODO: do map files
 
-    // Map decoding
-    public static final char FREE_TILE = '0';
-    public static final char OBST_TILE = '1';
-    public static final char GOAL_TILE = '2';
-    public static final char START_TILE = '$';
-
     // Default configurations
     public static final int DEF_FOV = 5;
 

@@ -1,8 +1,7 @@
 package com.mi.robodstar.View;
 
 import com.mi.robodstar.Main;
-import com.mi.robodstar.Model.*;
-import com.mi.robodstar.Model.Robot;
+import com.mi.robodstar.Model.TestChamber;
 import com.mi.robodstar.Utility.GuiMagic;
 
 import javax.swing.*;
@@ -20,7 +19,7 @@ public class Gui extends JFrame {
         GuiMagic.setFrameSize(this, 100, 100);
 
         testChamber = new TestChamber();
-        testChamber.addRobot(new Robot());setVisible(true);
+        setVisible(true);
         gamePanel = new GamePanel(this,testChamber);
 
         initFrame();

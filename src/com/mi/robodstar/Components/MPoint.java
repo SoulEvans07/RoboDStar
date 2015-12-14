@@ -34,4 +34,8 @@ public class MPoint {
         this.width = width;
         this.height = height;
     }
+
+    public boolean equals(MPoint mPoint){
+        return (mPoint.getWidth() == width) && (mPoint.getHeight() == height);
+    }
 }

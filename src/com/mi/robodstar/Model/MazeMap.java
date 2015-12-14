@@ -1,7 +1,6 @@
 package com.mi.robodstar.Model;
 
 import com.mi.robodstar.Components.MPoint;
-import com.mi.robodstar.Defaults.Reference;
 import com.mi.robodstar.Utility.LogHelper;
 
 import java.io.BufferedReader;
@@ -11,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MazeMap {
-    private ArrayList<Boolean> tiles;       // true = free spot, false = obstacle
+    private ArrayList<Tile> tiles;       // true = free spot, false = obstacle
     private ArrayList<String> map;
     private MPoint size;
 
@@ -30,7 +29,7 @@ public class MazeMap {
 
     // map from txt
     public MazeMap(String mapFilePath) {
-        this.tiles = new ArrayList<Boolean>();
+        this.tiles = new ArrayList<Tile>();
         this.map = new ArrayList<>();
 
 
@@ -46,10 +45,23 @@ public class MazeMap {
             while ((line = br.readLine()) != null) {
                 map.add(line);  // save txt into array so we don't have to open it after
                 for (int i = 0; i < line.length(); i++) {
-                    boolean temp = true;
-                    if (line.charAt(i) == Reference.OBST_TILE)
-                        temp = false;
-                    tiles.add(temp);
+                    switch (line.charAt(i)){
+                        case Tile.START_CHAR:
+                            tiles.add(new Tile(Tile.FREE));
+                            break;
+                        case Tile.FREE_CHAR:
+                            tiles.add(new Tile(Tile.FREE));
+                            break;
+                        case Tile.OBST_CHAR:
+                            tiles.add(new Tile(Tile.OBSTACLE));
+                            break;
+                        case Tile.GOAL_CHAR:
+                            tiles.add(new Tile(Tile.GOAL));
+                            break;
+                        default:
+                            System.out.println("f*ck this char: " + line.charAt(i));
+                            break;
+                    }
                 }
                 if(length != 0 && line.length() != length)
                     LogHelper.error("Hibas sor: " + row+1);
@@ -58,6 +70,7 @@ public class MazeMap {
                 row++;
             }
             size = new MPoint(length, row);
+
         } catch(IOException e) {
             e.printStackTrace();
         } finally {
@@ -91,7 +104,7 @@ public class MazeMap {
     public boolean isFree(MPoint p){
         if(isOut(p))
             LogHelper.error("Out of Map");
-        return tiles.get(p.getHeight() * size.getWidth() + p.getWidth());
+        return tiles.get(p.getHeight() * size.getWidth() + p.getWidth()).state > Tile.OBSTACLE;
     }
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -105,7 +118,7 @@ public class MazeMap {
     public void printTiles2Console(){
         for (int y = 0; y < size.getHeight(); y++) {
             for (int x = 0; x < size.getWidth(); x++)
-                System.out.print(tiles.get(y * size.getWidth() + x) ? ' ' : '#');
+                System.out.print(tiles.get(y * size.getWidth() + x).state > Tile.OBSTACLE ? Tile.FREE_CHAR : Tile.OBST_CHAR);
             System.out.println();
         }
     }

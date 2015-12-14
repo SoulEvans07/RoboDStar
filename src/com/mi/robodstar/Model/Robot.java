@@ -13,15 +13,20 @@ public class Robot {
     // View specific
     public Color color;
 
-    public Robot(){
-        pos = new MPoint(0, 0);
+    public Robot(MPoint sPos, Color c){
+        pos = sPos;
+        color = c;
+
         radar = new MazeMap(Config.getFOV(), Config.getFOV());   // field of view: 5 wide 5 high
         hMap = new MazeMap(Config.getHeuriticMapPath());
     }
 
     public Robot(MPoint sPos){
-        super();
-        pos = sPos; // set starting point
+        this(sPos, new Color(0,0,250));
+    }
+
+    public Robot(){
+        this(new MPoint(0, 0), new Color(0, 0, 250));
     }
 
 

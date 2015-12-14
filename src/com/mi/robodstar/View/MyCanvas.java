@@ -1,12 +1,8 @@
 package com.mi.robodstar.View;
 
-import com.mi.robodstar.Components.MPoint;
-import com.mi.robodstar.Model.*;
-import com.mi.robodstar.Model.Robot;
-import com.mi.robodstar.Utility.LogHelper;
+import com.mi.robodstar.Model.TestChamber;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created by Abel on 2015. 12. 14..
@@ -18,9 +14,6 @@ public class MyCanvas extends java.awt.Canvas{
     private int lineWidth;
     private int tileSize;
     private Color lineColor;
-    private Color wallColor;
-    private Color fieldColor;
-    private Color goalColor;
     public MyCanvas(Gui parent, TestChamber testChamber) {
         super();
         this.parent = parent;
@@ -30,9 +23,6 @@ public class MyCanvas extends java.awt.Canvas{
         lineWidth=2;
         tileSize=16;
         lineColor = new Color(100,100,100);
-        fieldColor = new Color(238,236,225);
-        wallColor = new Color(87, 43,0);
-        goalColor = new Color(200,200,0);
     }
 
 
@@ -43,7 +33,7 @@ public class MyCanvas extends java.awt.Canvas{
     }
 
     void drawMaze(Graphics2D g){
-        int offset=tileSize+lineWidth;
+        /*int offset=tileSize+lineWidth;
         MPoint temp = new MPoint(0,0);
         Robot robot;
         ArrayList<Robot> robots = testChamber.getRobots();
@@ -62,9 +52,7 @@ public class MyCanvas extends java.awt.Canvas{
                 }
 
                 if(testChamber.getGoal().equals(temp)){
-                //if(testChamber.getGoal().getWidth()==i && testChamber.getGoal().getHeight()==j ){
                     tempC = goalColor;
-                    LogHelper.error("anyad");
                 }
 
                 for(int k = 0; k < robots.size(); k++){
@@ -76,7 +64,7 @@ public class MyCanvas extends java.awt.Canvas{
                 g.setColor(tempC);
                 g.fillRect(i*offset,j*offset,tileSize,tileSize);
             }
-        }
+        }*/
     }
 }
 
