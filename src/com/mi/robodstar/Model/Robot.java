@@ -14,6 +14,7 @@ public class Robot {
     public Color color;
 
     public Robot(){
+        pos = new MPoint(0, 0);
         radar = new MazeMap(Config.getFOV(), Config.getFOV());   // field of view: 5 wide 5 high
         hMap = new MazeMap(Config.getHeuriticMapPath());
     }

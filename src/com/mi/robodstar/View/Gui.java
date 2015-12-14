@@ -1,8 +1,8 @@
 package com.mi.robodstar.View;
 
-import Tests.TestGui;
 import com.mi.robodstar.Main;
-import com.mi.robodstar.Model.TestChamber;
+import com.mi.robodstar.Model.*;
+import com.mi.robodstar.Model.Robot;
 import com.mi.robodstar.Utility.GuiMagic;
 
 import javax.swing.*;
@@ -10,9 +10,6 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-/**
- * Created by Abel on 2015. 12. 14..
- */
 public class Gui extends JFrame {
     private GamePanel gamePanel;
     private TestChamber testChamber;
@@ -22,6 +19,8 @@ public class Gui extends JFrame {
         GuiMagic.setWindowTheme(GuiMagic.WIN_LOOKS);
         GuiMagic.setFrameSize(this, 100, 100);
         testChamber = new TestChamber();
+        testChamber.addRobot(new Robot());
+
         initFrame();
 
         setVisible(true);
