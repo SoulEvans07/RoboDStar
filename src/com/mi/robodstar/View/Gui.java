@@ -21,6 +21,7 @@ public class Gui extends JFrame {
         setVisible(true);
         gamePanel = new GamePanel(this,testChamber);
 
+
         GuiMagic.setFrameSize(this, gamePanel.getWidth(), gamePanel.getHeight()+this.getInsets().top);
         initFrame();
         setVisible(true);
@@ -34,6 +35,13 @@ public class Gui extends JFrame {
         this.addWindowListener(new exitApp());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.setContentPane(gamePanel);
+    }
+
+    public void tick(){
+        testChamber.tick();
+        gamePanel.tick();
+        //TODO: make better
         this.setContentPane(gamePanel);
     }
 

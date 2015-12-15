@@ -1,16 +1,11 @@
 package com.mi.robodstar.View;
 
-import com.mi.robodstar.Components.MPoint;
-import com.mi.robodstar.Model.*;
-import com.mi.robodstar.Model.Robot;
+import com.mi.robodstar.Model.TestChamber;
+import com.mi.robodstar.Model.Tile;
 import com.mi.robodstar.Utility.LogHelper;
 
 import java.awt.*;
-import java.util.ArrayList;
 
-/**
- * Created by Abel on 2015. 12. 14..
- */
 public class MyCanvas extends java.awt.Canvas{
     private GamePanel parent;
     TestChamber testChamber;
@@ -18,6 +13,7 @@ public class MyCanvas extends java.awt.Canvas{
     private int lineWidth;
     private int tileSize;
     private Color lineColor;
+
     public MyCanvas(GamePanel parent, TestChamber testChamber) {
         super();
         this.parent = parent;
@@ -36,15 +32,15 @@ public class MyCanvas extends java.awt.Canvas{
 
     @Override
     public void paint(Graphics g) {
-        Graphics2D g2=(Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
         drawMaze(g2);
     }
 
     void drawMaze(Graphics2D g){
         int offset=tileSize+lineWidth;
         Tile temp;
-        Robot robot;
-        ArrayList<Robot> robots = testChamber.getRobots();
+        //Robot robot;
+        //ArrayList<Robot> robots = testChamber.getRobots();
         g.setColor(lineColor);
         g.fillRect(0,0,offset*cols+lineWidth,offset*rows+lineWidth);
         for(int i = 0; i<cols; i++){
@@ -54,6 +50,7 @@ public class MyCanvas extends java.awt.Canvas{
                 g.fillRect(lineWidth+i*offset,lineWidth+j*offset,tileSize,tileSize);
             }
         }
+        System.out.println();
     }
 
 }
