@@ -9,6 +9,11 @@ public class MPoint {
         height = 0;
     }
 
+    public MPoint(MPoint m) {
+        width = m.getWidth();
+        height = m.getHeight();
+    }
+
     public MPoint(int width, int height) {
         this.width = width;
         this.height = height;
@@ -34,8 +39,21 @@ public class MPoint {
         this.width = width;
         this.height = height;
     }
-
+/*
     public boolean equals(MPoint mPoint){
         return (mPoint.getWidth() == width) && (mPoint.getHeight() == height);
+    }
+*/
+    @Override
+    public boolean equals(Object object)
+    {
+        boolean sameSame = false;
+
+        if (object != null && object instanceof MPoint)
+        {
+            sameSame = (this.width == ((MPoint) object).width && this.height == ((MPoint) object).height );
+        }
+
+        return sameSame;
     }
 }

@@ -23,11 +23,21 @@ public class AStar extends Robot {
         Node loc = at;
         ArrayList<Node> neighbours;
 
-        LogHelper.comment("Start: loc[" + loc.pos.getWidth() + ", " + loc.pos.getHeight() + "]");
+        //LogHelper.comment("Start: loc[" + loc.pos.getWidth() + ", " + loc.pos.getHeight() + "]");
         while(open.size() != 0) {
             neighbours = hMap.getValidNeighbours(loc.pos);
-            open.remove(loc);
-            closed.add(new Node(loc));
+            for(int i = 0; i<closed.size(); i++){
+                while (neighbours.contains(closed.get(i))){
+                    neighbours.remove(closed.get(i));
+                }
+            }
+            for(int i = 0; i<neighbours.size(); i++)
+            while(open.contains(loc))
+                open.remove(loc);
+
+            if(closed.contains(loc) == false) {
+                closed.add(new Node(loc));
+            }
             /*
             if(neighbours.size() != 0) {
                 int k = 0;
@@ -47,7 +57,8 @@ public class AStar extends Robot {
                 //LogHelper.inline(i + ".pos[" + p.getWidth() + ", " + p.getHeight() + "]");
                 neighbours.get(i).steps = loc.steps + 1;
                 neighbours.get(i).dist = abs(goal.getWidth() - p.getWidth()) + abs(goal.getHeight() - p.getHeight());
-                open.add(neighbours.get(i));
+                open.add(new Node(neighbours.get(i)));
+
             }
             //LogHelper.inline("<<<< neighbours");
 
@@ -59,7 +70,7 @@ public class AStar extends Robot {
                     k = i;
                 }
             }
-            //{
+            /*{
             LogHelper.inline(">>>> open[" + open.size() + "]:");
             for (int i = 0; i < open.size(); i++) {
                 LogHelper.inline("open[" + i + "] = [" + open.get(i).pos.getWidth() + ", " + open.get(i).pos.getHeight() + "]");
@@ -71,11 +82,11 @@ public class AStar extends Robot {
                 LogHelper.inline("closed[" + i + "] = [" + closed.get(i).pos.getWidth() + ", " + closed.get(i).pos.getHeight() + "]");
             }
             LogHelper.inline("<<<< closed");
-            //}
-            loc = open.get(k);
+            }*/
+            loc = new Node(open.get(k));
             //TODO:!!!!!!!!!!!!!!!!!!!!!!!
             pos.set(loc.pos.getWidth(), loc.pos.getHeight());
-            LogHelper.comment("Next: pos[" + pos.getWidth() + ", " + pos.getHeight() + "]");
+            //LogHelper.comment("Next: pos[" + pos.getWidth() + ", " + pos.getHeight() + "]");
             TestGui.tick();
             try {
                 Thread.sleep(500);

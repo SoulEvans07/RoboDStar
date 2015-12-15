@@ -13,7 +13,7 @@ public class Node {
     }
 
     public Node(Node n){
-        pos = n.pos;
+        pos = new MPoint(n.pos);
         dist = n.dist;
         steps = n.steps;
     }
@@ -22,4 +22,16 @@ public class Node {
         return dist + steps;
     }
 
+    @Override
+    public boolean equals(Object object)
+    {
+        boolean sameSame = false;
+
+        if (object != null && object instanceof Node)
+        {
+            sameSame = this.pos.equals(((Node) object).pos);
+        }
+
+        return sameSame;
+    }
 }

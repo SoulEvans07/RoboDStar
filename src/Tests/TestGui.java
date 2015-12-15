@@ -1,7 +1,9 @@
 package Tests;
 
+import com.mi.robodstar.Components.MPoint;
 import com.mi.robodstar.Defaults.Config;
 import com.mi.robodstar.Model.*;
+import com.mi.robodstar.Utility.LogHelper;
 import com.mi.robodstar.View.Gui;
 
 public class TestGui {
@@ -19,6 +21,7 @@ public class TestGui {
 
         gui = new Gui(testChamber);
         A.algorithm();
+
     }
 
     public static void tick(){
