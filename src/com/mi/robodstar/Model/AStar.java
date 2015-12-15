@@ -31,7 +31,6 @@ public class AStar extends Robot {
                     neighbours.remove(closed.get(i));
                 }
             }
-            for(int i = 0; i<neighbours.size(); i++)
             while(open.contains(loc))
                 open.remove(loc);
 
