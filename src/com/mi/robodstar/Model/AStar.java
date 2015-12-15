@@ -2,7 +2,6 @@ package com.mi.robodstar.Model;
 
 import Tests.TestGui;
 import com.mi.robodstar.Components.MPoint;
-import com.mi.robodstar.Utility.LogHelper;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ public class AStar extends Robot {
         ArrayList<Node> neighbours;
 
         //LogHelper.comment("Start: loc[" + loc.pos.getWidth() + ", " + loc.pos.getHeight() + "]");
-        while(open.size() != 0) {
+        while(open.size() != 0 && !pos.equals(goal)) {
             neighbours = hMap.getValidNeighbours(loc.pos);
             for(int i = 0; i<closed.size(); i++){
                 while (neighbours.contains(closed.get(i))){

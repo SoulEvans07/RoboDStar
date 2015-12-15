@@ -1,8 +1,9 @@
 package Tests;
 
-import com.mi.robodstar.Components.MPoint;
 import com.mi.robodstar.Defaults.Config;
-import com.mi.robodstar.Model.*;
+import com.mi.robodstar.Model.AStar;
+import com.mi.robodstar.Model.Clock;
+import com.mi.robodstar.Model.TestChamber;
 import com.mi.robodstar.Utility.LogHelper;
 import com.mi.robodstar.View.Gui;
 
@@ -12,6 +13,7 @@ public class TestGui {
         Config.setDefaults();
         Clock.set();
         //Clock.startClock();
+        LogHelper.pauseRec();
 
         TestChamber testChamber = new TestChamber();
         AStar A = new AStar(testChamber.getStart(), testChamber.getGoal());
