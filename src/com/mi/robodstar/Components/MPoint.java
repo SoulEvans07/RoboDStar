@@ -1,5 +1,7 @@
 package com.mi.robodstar.Components;
 
+import com.mi.robodstar.Model.Node;
+
 public class MPoint {
     private int width;
     private int height;
@@ -35,9 +37,10 @@ public class MPoint {
         this.height = height;
     }
 
-    public void set(int width, int height){
+    public Node set(int width, int height){
         this.width = width;
         this.height = height;
+        return null;
     }
 /*
     public boolean equals(MPoint mPoint){

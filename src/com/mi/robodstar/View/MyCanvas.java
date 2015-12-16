@@ -50,7 +50,6 @@ public class MyCanvas extends java.awt.Canvas{
                 g.fillRect(lineWidth+i*offset,lineWidth+j*offset,tileSize,tileSize);
             }
         }
-        System.out.println();
     }
 
 }

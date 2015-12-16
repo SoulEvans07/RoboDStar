@@ -2,7 +2,6 @@ package com.mi.robodstar.Model;
 
 import Tests.TestGui;
 import com.mi.robodstar.Defaults.Reference;
-import com.mi.robodstar.Utility.LogHelper;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +19,6 @@ public class Clock {
     private static void tick() {
         counter++;
         TestGui.tick();
-        LogHelper.comment("tick!");
     }
 
     public static void set(){

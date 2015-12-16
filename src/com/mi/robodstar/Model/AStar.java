@@ -12,10 +12,16 @@ public class AStar extends Robot {
     private ArrayList<Node> open;
     private ArrayList<Node> closed;
     private Node at;
+    public ArrayList<Boolean> path;
 
     public AStar(MPoint start, MPoint goal){
         super(start, goal);
         initHeuristics();
+
+        path = new ArrayList<>();
+        for(int y = 0; y < hMap.getSize().getHeight(); y++)
+            for(int x = 0; x < hMap.getSize().getWidth(); x++)
+                path.add(false);
     }
 
     public void algorithm(){
@@ -25,7 +31,7 @@ public class AStar extends Robot {
         //LogHelper.comment("Start: loc[" + loc.pos.getWidth() + ", " + loc.pos.getHeight() + "]");
         while(open.size() != 0 && !pos.equals(goal)) {
             neighbours = hMap.getValidNeighbours(loc.pos);
-            for(int i = 0; i<closed.size(); i++){
+            for(int i = 0; i < closed.size(); i++){
                 while (neighbours.contains(closed.get(i))){
                     neighbours.remove(closed.get(i));
                 }
@@ -50,13 +56,15 @@ public class AStar extends Robot {
             */
 
             //LogHelper.inline(">>>> neighbours[" + neighbours.size() + "]:");
+            Node neighbour;
             for (int i = 0; i < neighbours.size(); i++) {
                 MPoint p = neighbours.get(i).pos;
                 //LogHelper.inline(i + ".pos[" + p.getWidth() + ", " + p.getHeight() + "]");
                 neighbours.get(i).steps = loc.steps + 1;
                 neighbours.get(i).dist = abs(goal.getWidth() - p.getWidth()) + abs(goal.getHeight() - p.getHeight());
-                open.add(new Node(neighbours.get(i)));
-
+                neighbour = new Node(neighbours.get(i));
+                neighbour.setParent(loc);
+                open.add(neighbour);
             }
             //LogHelper.inline("<<<< neighbours");
 
@@ -68,8 +76,8 @@ public class AStar extends Robot {
                     k = i;
                 }
             }
-            /*{
-            LogHelper.inline(">>>> open[" + open.size() + "]:");
+
+            /*LogHelper.inline(">>>> open[" + open.size() + "]:");
             for (int i = 0; i < open.size(); i++) {
                 LogHelper.inline("open[" + i + "] = [" + open.get(i).pos.getWidth() + ", " + open.get(i).pos.getHeight() + "]");
             }
@@ -79,18 +87,27 @@ public class AStar extends Robot {
             for (int i = 0; i < closed.size(); i++) {
                 LogHelper.inline("closed[" + i + "] = [" + closed.get(i).pos.getWidth() + ", " + closed.get(i).pos.getHeight() + "]");
             }
-            LogHelper.inline("<<<< closed");
-            }*/
-            loc = new Node(open.get(k));
+            LogHelper.inline("<<<< closed");*/
+
+            Node temp = new Node(open.get(k));
+            //temp.setParent(loc);
+            loc = temp;
             //TODO:!!!!!!!!!!!!!!!!!!!!!!!
             pos.set(loc.pos.getWidth(), loc.pos.getHeight());
             //LogHelper.comment("Next: pos[" + pos.getWidth() + ", " + pos.getHeight() + "]");
+            //LogHelper.inline("-----------------------------------");
             TestGui.tick();
             try {
-                Thread.sleep(500);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+        //loc.printParent();
+        Node temp = new Node(loc);
+        while(temp != null){
+            path.set(temp.pos.getHeight()*hMap.getSize().getWidth() + temp.pos.getWidth(), true);
+            temp = temp.parent;
         }
 
     }

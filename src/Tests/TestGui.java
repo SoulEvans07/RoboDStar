@@ -4,7 +4,7 @@ import com.mi.robodstar.Defaults.Config;
 import com.mi.robodstar.Model.AStar;
 import com.mi.robodstar.Model.Clock;
 import com.mi.robodstar.Model.TestChamber;
-import com.mi.robodstar.Utility.LogHelper;
+import com.mi.robodstar.Model.Tile;
 import com.mi.robodstar.View.Gui;
 
 public class TestGui {
@@ -13,7 +13,6 @@ public class TestGui {
         Config.setDefaults();
         Clock.set();
         //Clock.startClock();
-        LogHelper.pauseRec();
 
         TestChamber testChamber = new TestChamber();
         AStar A = new AStar(testChamber.getStart(), testChamber.getGoal());
@@ -23,7 +22,12 @@ public class TestGui {
 
         gui = new Gui(testChamber);
         A.algorithm();
-
+        for(int y = 0; y < testChamber.getSize().getHeight(); y++)
+            for(int x = 0; x < testChamber.getSize().getWidth(); x++){
+                if(A.path.get(y * testChamber.getSize().getWidth() + x))
+                    testChamber.getChamber().getTile(x, y).setState(Tile.JOINT_TRACE);
+            }
+        tick();
     }
 
     public static void tick(){

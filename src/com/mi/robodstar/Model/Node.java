@@ -7,6 +7,7 @@ public class Node {
     public MPoint pos;
     public int dist;    // straight line distance (Manhattan distance)
     public int steps;   // steps to get to this node
+    public Node parent;
 
     public Node(MPoint p){
         pos = p;
@@ -16,10 +17,15 @@ public class Node {
         pos = new MPoint(n.pos);
         dist = n.dist;
         steps = n.steps;
+        parent = n.parent;
     }
 
     public int getF(){
         return dist + steps;
+    }
+
+    public void setParent(Node par){
+        parent = new Node(par);
     }
 
     @Override
@@ -33,5 +39,11 @@ public class Node {
         }
 
         return sameSame;
+    }
+
+    public void printParent(){
+        if(parent != null)
+            parent.printParent();
+        System.out.println("[" + pos.getWidth() + ", " + pos.getHeight() + "]");
     }
 }
