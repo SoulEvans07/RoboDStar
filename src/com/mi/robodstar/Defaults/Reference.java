@@ -17,5 +17,5 @@ public class Reference {
     public static final int STEP = 1;
 
     // Clock configurations
-    public static final int TIMER_TICK = 1000; // means the clock is on 1 tick/second
+    public static final int TIMER_TICK = 100; // means the clock is on 1 tick/second
 }

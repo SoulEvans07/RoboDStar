@@ -14,16 +14,22 @@ public class AStar extends Robot {
     private ArrayList<Node> open;
     private ArrayList<Node> closed;
     private Node at;
-    public ArrayList<Boolean> path;
+    public ArrayList<Boolean> pathBool;
+
+    private Path path;
 
     public AStar(MPoint start, MPoint goal){
         super(start, goal);
         initHeuristics();
 
-        path = new ArrayList<>();
+        pathBool = new ArrayList<>();
         for(int y = 0; y < hMap.getSize().getHeight(); y++)
             for(int x = 0; x < hMap.getSize().getWidth(); x++)
-                path.add(false);
+                pathBool.add(false);
+    }
+
+    public void calc(){
+        path = algorithmV2();
     }
 
     public Path algorithmV2(){
@@ -155,7 +161,7 @@ public class AStar extends Robot {
         //loc.printParent();
         Node temp = new Node(loc);
         while(temp != null){
-            path.set(temp.pos.getHeight()*hMap.getSize().getWidth() + temp.pos.getWidth(), true);
+            pathBool.set(temp.pos.getHeight()*hMap.getSize().getWidth() + temp.pos.getWidth(), true);
             temp = temp.parent;
         }
 
@@ -173,6 +179,13 @@ public class AStar extends Robot {
 
     @Override
     public void tick() {
-
+        MPoint temp = path.getNext(pos);
+        if(temp != null)
+            pos = temp;
+        else if(pos.equals(goal)) {
+            LogHelper.inline("WIN");
+            Clock.stopClock();
+        } else
+            LogHelper.error("Cannot reach");
     }
 }

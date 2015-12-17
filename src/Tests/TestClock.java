@@ -1,15 +1,16 @@
 package Tests;
 
 import com.mi.robodstar.Defaults.Config;
-import com.mi.robodstar.Model.*;
+import com.mi.robodstar.Model.AStar;
+import com.mi.robodstar.Model.Clock;
+import com.mi.robodstar.Model.TestChamber;
 import com.mi.robodstar.View.Gui;
 
-public class TestGui {
+public class TestClock {
     static Gui gui;
     public static void main(String args[]){
         Config.setDefaults();
         Clock.set();
-        //Clock.startClock();
 
         TestChamber testChamber = new TestChamber();
         AStar A = new AStar(testChamber.getStart(), testChamber.getGoal());
@@ -18,16 +19,8 @@ public class TestGui {
         //testChamber.addRobot(D);
 
         gui = new Gui(testChamber);
-        //A.algorithm();
-        Path path = A.algorithmV2();
-        //path.printPath();
-
-        for(int y = 0; y < testChamber.getSize().getHeight(); y++)
-            for(int x = 0; x < testChamber.getSize().getWidth(); x++){
-                if(path.getSolution().get(y * testChamber.getSize().getWidth() + x))
-                    testChamber.getChamber().getTile(x, y).setState(Tile.JOINT_TRACE);
-            }
-        tick();
+        A.calc();
+        Clock.startClock();
     }
 
     public static void tick(){

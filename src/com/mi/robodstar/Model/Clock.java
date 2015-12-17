@@ -1,6 +1,6 @@
 package com.mi.robodstar.Model;
 
-import Tests.TestGui;
+import Tests.TestClock;
 import com.mi.robodstar.Defaults.Reference;
 
 import javax.swing.*;
@@ -18,7 +18,8 @@ public class Clock {
 
     private static void tick() {
         counter++;
-        TestGui.tick();
+        //TestGui.tick();
+        TestClock.tick();
     }
 
     public static void set(){

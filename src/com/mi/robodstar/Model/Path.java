@@ -33,6 +33,16 @@ public class Path {
         return path;
     }
 
+    public MPoint getNext(MPoint pos){
+        for(Node n : steps){
+            if(n.pos.equals(pos))
+                if(steps.indexOf(n)+1 < steps.size())
+                return steps.get(steps.indexOf(n)+1).pos;
+        }
+        return null;
+    }
+
+
     public void printPath(){
         for(Node n : steps)
             System.out.println("[" + n.pos.getWidth() + ", " + n.pos.getHeight() + "]");

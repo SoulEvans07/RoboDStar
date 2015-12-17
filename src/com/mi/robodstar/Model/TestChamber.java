@@ -51,6 +51,9 @@ public class TestChamber {
     }
 
     public void tick() {
+        for(Robot r : robots)
+            r.tick();
+
         for(int y = 0; y < chamber.getSize().getHeight(); y++)
             for (int x = 0; x < chamber.getSize().getWidth(); x++){
                 if(chamber.getTile(x, y).getState() == Tile.ROBO1)
