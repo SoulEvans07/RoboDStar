@@ -48,12 +48,8 @@ public class NodeList {
     public void remove(Node node){
         int i = indexOf(node);
         if(i >= 0) {
-            //printList("BEFORE C");
-            //System.out.println("remove " + "[" + nodes.get(i).pos.getWidth() + ", " + nodes.get(i).pos.getHeight() + "]");
             nodes.remove(i);
-            //printList("AFTER C");
         }
-        //nodes.remove(this.get(node.pos));
         sort();
     }
 

@@ -39,7 +39,6 @@ public class AStar extends Robot {
 
         while(open.size() > 0){
             Node n = open.get(0);   // sorted list, first is the lowest cost
-            //System.out.println("algV2 [" + n.pos.getWidth() + ", " + n.pos.getHeight() + "]");
 
             if(n.pos.equals(goal))
                 return new Path(n, hMap.getSize());
@@ -58,7 +57,6 @@ public class AStar extends Robot {
                     jason.steps = closed.get(jason.pos).steps;
                 }
             }
-            //neighbours.printList("NEIGHBOURS");
 
             for(Node jason : neighbours.getList()){
                 boolean temp = (!open.contains(jason) && !closed.contains(jason)) ||  (n.dist + Reference.STEP < jason.steps);
@@ -70,15 +68,6 @@ public class AStar extends Robot {
                 }
             }
 
-            //open.printList("OPEN");
-            //closed.printList("CLOSED");
-            //System.out.println("\n\n");
-
-            /*try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
         }
         LogHelper.error("No solution!");
         return null;
