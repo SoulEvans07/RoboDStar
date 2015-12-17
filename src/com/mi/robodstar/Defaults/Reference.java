@@ -14,6 +14,7 @@ public class Reference {
 
     // Default configurations
     public static final int DEF_FOV = 5;
+    public static final int STEP = 1;
 
     // Clock configurations
     public static final int TIMER_TICK = 1000; // means the clock is on 1 tick/second

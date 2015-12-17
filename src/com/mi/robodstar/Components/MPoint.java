@@ -47,7 +47,17 @@ public class MPoint {
         return (mPoint.getWidth() == width) && (mPoint.getHeight() == height);
     }
 */
-    @Override
+
+
+    public void printPos(String end){
+        System.out.print("[" + width + ", " + height + "]" + end);
+    }
+
+    public void printPos(){
+        printPos("");
+    }
+
+
     public boolean equals(Object object)
     {
         boolean sameSame = false;

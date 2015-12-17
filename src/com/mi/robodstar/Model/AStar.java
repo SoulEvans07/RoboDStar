@@ -2,6 +2,8 @@ package com.mi.robodstar.Model;
 
 import Tests.TestGui;
 import com.mi.robodstar.Components.MPoint;
+import com.mi.robodstar.Defaults.Reference;
+import com.mi.robodstar.Utility.LogHelper;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,64 @@ public class AStar extends Robot {
         for(int y = 0; y < hMap.getSize().getHeight(); y++)
             for(int x = 0; x < hMap.getSize().getWidth(); x++)
                 path.add(false);
+    }
+
+    public Path algorithmV2(){
+        Node start = new Node(pos);
+        start.setManhattanDist(goal);
+        start.steps = 0;
+        start.parent = null;
+
+        NodeList open = new NodeList();
+        NodeList closed = new NodeList();
+
+        open.add(start);
+
+        while(open.size() > 0){
+            Node n = open.get(0);   // sorted list, first is the lowest cost
+            //System.out.println("algV2 [" + n.pos.getWidth() + ", " + n.pos.getHeight() + "]");
+
+            if(n.pos.equals(goal))
+                return new Path(n, hMap.getSize());
+            open.remove(n);
+            closed.add(n);
+
+            // set neighbours
+            NodeList neighbours = new NodeList(hMap.getValidNeighbours(n.pos));
+            for(Node jason : neighbours.getList()){
+                jason.setManhattanDist(goal);
+                jason.steps = hMap.getSize().getWidth() * hMap.getSize().getHeight();
+                if(open.contains(jason.pos)) {
+                    jason.steps = open.get(jason.pos).steps;
+                }
+                if(closed.contains(jason.pos)) {
+                    jason.steps = closed.get(jason.pos).steps;
+                }
+            }
+            //neighbours.printList("NEIGHBOURS");
+
+            for(Node jason : neighbours.getList()){
+                boolean temp = (!open.contains(jason) && !closed.contains(jason)) ||  (n.dist + Reference.STEP < jason.steps);
+                if(temp){
+                    jason.steps = n.steps + Reference.STEP;
+                    jason.parent = n;
+                    open.add(jason);
+                    closed.remove(jason);
+                }
+            }
+
+            //open.printList("OPEN");
+            //closed.printList("CLOSED");
+            //System.out.println("\n\n");
+
+            /*try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
+        }
+        LogHelper.error("No solution!");
+        return null;
     }
 
     public void algorithm(){

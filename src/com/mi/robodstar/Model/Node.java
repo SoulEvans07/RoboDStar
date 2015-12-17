@@ -2,8 +2,10 @@ package com.mi.robodstar.Model;
 
 import com.mi.robodstar.Components.MPoint;
 
+import static java.lang.Math.abs;
 
-public class Node {
+
+public class Node implements Comparable {
     public MPoint pos;
     public int dist;    // straight line distance (Manhattan distance)
     public int steps;   // steps to get to this node
@@ -28,7 +30,11 @@ public class Node {
         parent = new Node(par);
     }
 
-    @Override
+    public void setManhattanDist(MPoint goal){
+        dist = abs(goal.getWidth() - pos.getWidth()) + abs(goal.getHeight() - pos.getHeight());
+    }
+
+
     public boolean equals(Object object)
     {
         boolean sameSame = false;
@@ -45,5 +51,14 @@ public class Node {
         if(parent != null)
             parent.printParent();
         System.out.println("[" + pos.getWidth() + ", " + pos.getHeight() + "]");
+    }
+
+
+
+    @Override
+    public int compareTo(Object o) {
+        int compareF = ((Node)o).getF();
+
+        return this.getF() - compareF;
     }
 }
