@@ -99,14 +99,17 @@ public class MazeMap {
     public boolean isOut(MPoint p){
         boolean out = (p.getWidth() < 0) || (p.getWidth() > size.getWidth()) ||
                         (p.getHeight() < 0) || (p.getHeight() > size.getHeight());
-        //LogHelper.comment("Out: loc[" + p.getWidth() + ", " + p.getHeight() + "] + " + out);
         return out;
     }
 
     public boolean isFree(MPoint p){
         boolean free = tiles.get(p.getHeight() * size.getWidth() + p.getWidth()).getState() > Tile.OBSTACLE;
-        //LogHelper.comment("Free: loc[" + p.getWidth() + ", " + p.getHeight() + "] + " + free);
         return free;
+    }
+
+    public void add(Tile tile){
+        if(tiles.size() < size.getWidth() * size.getHeight())
+            tiles.add(tile);
     }
 
     public ArrayList<Node> getValidNeighbours(MPoint pos){
@@ -118,37 +121,26 @@ public class MazeMap {
         if(!isOut(temp) && isFree(temp)) {
             t = new Node(temp);
             ret.add(t);
-            //LogHelper.comment("added " + ret.indexOf(t) + " [" + temp.getWidth() + ", " + temp.getHeight() + "]");
         }
 
         temp = new MPoint(pos.getWidth(), pos.getHeight() - 1);      // down
         if(!isOut(temp) && isFree(temp)) {
             t = new Node(temp);
             ret.add(t);
-            //LogHelper.comment("added " + ret.indexOf(t) + " [" + temp.getWidth() + ", " + temp.getHeight() + "]");
         }
 
         temp = new MPoint(pos.getWidth() + 1, pos.getHeight());      // right
         if(!isOut(temp) && isFree(temp)) {
             t = new Node(temp);
             ret.add(t);
-            //LogHelper.comment("added " + ret.indexOf(t) + " [" + temp.getWidth() + ", " + temp.getHeight() + "]");
         }
 
         temp = new MPoint(pos.getWidth() - 1, pos.getHeight());      // left
         if(!isOut(temp) && isFree(temp)) {
             t = new Node(temp);
             ret.add(t);
-            //LogHelper.comment("added " + ret.indexOf(t) + " [" + temp.getWidth() + ", " + temp.getHeight() + "]");
         }
 
-        /*
-        for (int i = 0; i < ret.size(); i++) {
-            LogHelper.comment(">>> get[" + ret.size() + "]:");
-            LogHelper.comment(i + ".pos[" + ret.get(i).pos.getWidth() + ", " + ret.get(i).pos.getHeight() + "]");
-            LogHelper.comment("<<< get neighbours");
-        }
-        */
         return ret;
     }
 

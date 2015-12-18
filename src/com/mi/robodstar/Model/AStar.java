@@ -18,8 +18,8 @@ public class AStar extends Robot {
 
     private Path path;
 
-    public AStar(MPoint start, MPoint goal){
-        super(start, goal, Tile.ROBO1);
+    public AStar(MazeMap map, MPoint start, MPoint goal){
+        super(map, start, goal, Tile.ROBO1);
         initHeuristics();
 
         pathBool = new ArrayList<>();
@@ -56,11 +56,11 @@ public class AStar extends Robot {
             for(Node jason : neighbours.getList()){
                 jason.setManhattanDist(goal);
                 jason.steps = hMap.getSize().getWidth() * hMap.getSize().getHeight();
-                if(open.contains(jason.pos)) {
-                    jason.steps = open.get(jason.pos).steps;
-                }
                 if(closed.contains(jason.pos)) {
                     jason.steps = closed.get(jason.pos).steps;
+                }
+                if(open.contains(jason.pos)) {
+                    jason.steps = open.get(jason.pos).steps;
                 }
             }
 
@@ -73,7 +73,6 @@ public class AStar extends Robot {
                     closed.remove(jason);
                 }
             }
-
         }
         LogHelper.error("No solution!");
         return null;
@@ -187,5 +186,10 @@ public class AStar extends Robot {
             Clock.stopClock();
         } else
             LogHelper.error("Cannot reach");
+    }
+
+    @Override
+    public boolean haveRadar() {
+        return false;
     }
 }

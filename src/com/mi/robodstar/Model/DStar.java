@@ -6,15 +6,28 @@ import com.mi.robodstar.Defaults.Config;
 public class DStar extends Robot {
     MazeMap radar;  // field of view
 
-    public DStar(MPoint start, MPoint goal){
-        super(start, goal, Tile.ROBO2);
+    public DStar(MazeMap map, MPoint start, MPoint goal){
+        super(map, start, goal, Tile.ROBO2);
         radar = new MazeMap(Config.getFOV(), Config.getFOV());   // field of view: 5 wide 5 high
+    }
+
+    public MazeMap getRadarView(){
+        return radar;
+    }
+
+
+    public void getView(){
+        radar = getRadar(Config.getFOV());
+        radar.printTiles2Console();
     }
 
     @Override
     public void tick() {
         // TODO: LATER!
-        this.pos.setWidth(pos.getWidth() + 1);
-        this.pos.setHeight(pos.getHeight());
+    }
+
+    @Override
+    public boolean haveRadar() {
+        return true;
     }
 }

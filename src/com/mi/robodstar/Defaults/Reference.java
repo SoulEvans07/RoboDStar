@@ -13,7 +13,7 @@ public class Reference {
     public static final String MAP_PATH = "/assets//map1.txt";    // TODO: do map files
 
     // Default configurations
-    public static final int DEF_FOV = 5;
+    public static final int DEF_FOV = 2;
     public static final int STEP = 1;
 
     // Clock configurations

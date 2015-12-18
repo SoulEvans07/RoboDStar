@@ -14,8 +14,8 @@ public class TestClock {
         Clock.set();
 
         TestChamber testChamber = new TestChamber();
-        AStar A = new AStar(testChamber.getStart(), testChamber.getGoal());
-        DStar D = new DStar(testChamber.getStart(), testChamber.getGoal());
+        AStar A = new AStar(testChamber.getChamber(), testChamber.getStart(), testChamber.getGoal());
+        DStar D = new DStar(testChamber.getChamber(), testChamber.getStart(), testChamber.getGoal());
         testChamber.addRobot(A);
         testChamber.addRobot(D);
 
