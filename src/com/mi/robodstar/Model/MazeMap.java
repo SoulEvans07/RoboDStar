@@ -163,6 +163,18 @@ public class MazeMap {
         }
     }
 
+    public void printTiles2Console(int px, int py){
+        for (int y = 0; y < size.getHeight(); y++) {
+            for (int x = 0; x < size.getWidth(); x++) {
+                if(px == x && py == y)
+                    System.out.print("@");
+                else
+                    System.out.print(tiles.get(y * size.getWidth() + x).getState() > Tile.OBSTACLE ? Tile.FREE_CHAR : Tile.OBST_CHAR);
+            }
+            System.out.println();
+        }
+    }
+
     public void printTiles2Console(){
         for (int y = 0; y < size.getHeight(); y++) {
             for (int x = 0; x < size.getWidth(); x++)

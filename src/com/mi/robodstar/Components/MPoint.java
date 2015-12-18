@@ -57,6 +57,9 @@ public class MPoint {
         printPos("\n");
     }
 
+    public int getDist(MPoint p){
+        return (int) Math.sqrt(Math.pow(width-p.getWidth(), 2) + Math.pow(height-p.getHeight(), 2));
+    }
 
     public boolean equals(Object object)
     {

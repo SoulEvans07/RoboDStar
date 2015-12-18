@@ -88,14 +88,14 @@ public class AStar extends Robot {
     }
 
     @Override
-    public void tick() {/*
+    public void tick() {
         MPoint temp = path.getNext(pos);
         if(path.getNext(pos) != null) {
             pos = temp;
         } else if(pos.equals(goal)) {
 
         } else
-            LogHelper.error("Cannot reach");*/
+            LogHelper.error("Cannot reach");
     }
 
     @Override

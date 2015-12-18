@@ -2,6 +2,7 @@ package com.mi.robodstar.Model;
 
 import com.mi.robodstar.Components.MPoint;
 import com.mi.robodstar.Defaults.Config;
+import com.mi.robodstar.Utility.LogHelper;
 
 import java.util.ArrayList;
 
@@ -93,18 +94,6 @@ public class DStar extends Robot {
         RECONSTRUCTION(startID);
     }
 
-    public void updateArcCost(int nodeID) {
-        for (int i = 0; i < pathStorage.size(); i++) {
-            if (nodeID == pathStorage.get(i)) {
-                startID = pathStorage.get(i - 1);//New start point. It is front of the obstacle on the path.
-                pathStorage.remove(nodeID);
-            }
-        }
-        int cVal = infiniteValue;
-        MODIFY_COST(nodeID, cVal);
-        nodes.get(nodeID).obstacle = true;
-    }
-
 
     private double PROCESS_STATE() {
         double K_Old = -1;
@@ -144,8 +133,7 @@ public class DStar extends Robot {
                 }
             }
         } else { //This condition is used to update info when a obs appears on the path
-            for( int Y : NEIGHBOR(X))
-            {
+            for (int Y : NEIGHBOR(X)) {
                 double h_Y = nodes.get(Y).hValue;
                 int B_Y = nodes.get(Y).backPointer;
                 int B_X = nodes.get(X).backPointer;
@@ -171,34 +159,52 @@ public class DStar extends Robot {
 
     private ArrayList<Integer> NEIGHBOR(int Current_Node_ID) {
         ArrayList<Integer> neighbours = new ArrayList<>();
-        neighbours.add(-1);
+        //neighbours.add(-1);
         if (Current_Node_ID - (width) >= 0) {
-            int UpperNode_ID;
-            UpperNode_ID = Current_Node_ID - (width );
-            neighbours.add(UpperNode_ID);
+            if (hMap.isFree(new MPoint(nodes.get(Current_Node_ID - width).posx, nodes.get(Current_Node_ID - width).posy))) {
+                int UpperNode_ID;
+                UpperNode_ID = Current_Node_ID - (width);
+                neighbours.add(UpperNode_ID);
+            }
         }
         if (Current_Node_ID + (width) < nodes.size()) {
-            int LowerNode_ID;
-            LowerNode_ID = Current_Node_ID + (width);
-            neighbours.add(LowerNode_ID);
+            if (hMap.isFree(new MPoint(nodes.get(Current_Node_ID + width).posx, nodes.get(Current_Node_ID + width).posy))) {
+                int LowerNode_ID;
+                LowerNode_ID = Current_Node_ID + (width);
+                neighbours.add(LowerNode_ID);
+            }
         }
         if (nodes.get(Current_Node_ID).posx + 1 < (width)) {
-            int RightNode_ID;
-            RightNode_ID = Current_Node_ID + 1;
-            neighbours.add(RightNode_ID);
+            if (hMap.isFree(new MPoint(nodes.get(Current_Node_ID).posx + 1, nodes.get(Current_Node_ID).posy))) {
+                int RightNode_ID;
+                RightNode_ID = Current_Node_ID + 1;
+                neighbours.add(RightNode_ID);
+            }
         }
         if (nodes.get(Current_Node_ID).posx - 1 >= 0) {
-            int LeftNode_ID;
-            LeftNode_ID = Current_Node_ID - 1;
-            neighbours.add(LeftNode_ID);
-        }
-        //------------------------
-
-        //-----------------------
-        if (neighbours.size() > 1) {
-            neighbours.remove(0);   // 0. elem -1
+            if (hMap.isFree(new MPoint(nodes.get(Current_Node_ID).posx - 1, nodes.get(Current_Node_ID).posy))) {
+                int LeftNode_ID;
+                LeftNode_ID = Current_Node_ID - 1;
+                neighbours.add(LeftNode_ID);
+            }
         }
         return neighbours;
+    }
+
+    public void updateArcCost(int nodeID) {
+        for (int i = 0; i < pathStorage.size(); i++) {
+            if (nodeID == pathStorage.get(i)) {
+                for(int k = 0; k < i; k++)
+                    if(pos.getHeight() * width + pos.getWidth() == pathStorage.get(k))
+                        startID = pathStorage.get(k+1);
+                pathStorage.remove(i);
+                i--;
+                at = 0;
+            }
+        }
+        int cVal = infiniteValue;
+        MODIFY_COST(nodeID, cVal);
+        nodes.get(nodeID).obstacle = true;
     }
 
 
@@ -267,11 +273,10 @@ public class DStar extends Robot {
         } else {
             openList.add(nodeID);
         }
-        //LogHelper.line(openList.size());
     }
 
     private void DELETE(int nodeID) {
-        openList.remove((Integer)nodeID);
+        openList.remove((Integer) nodeID);
         nodes.get(nodeID).tag = DNode.CLOSED;
         if (nodes.get(nodeID).obstacle == false) {
             closedNodes.add(nodeID);
@@ -324,8 +329,12 @@ public class DStar extends Robot {
                 if (!hMap.isOut(temp)) {
                     hState = hMap.getTile(temp.getWidth(), temp.getHeight()).getState();
                     rState = radar.getTile(x + fov, y + fov).getState();
-                    if (hState != rState)
+                    if (hState != rState) {
+                        if (rState == Tile.OBSTACLE) {
+                            updateArcCost(temp.getHeight() * width + temp.getWidth());
+                        }
                         hMap.getTile(temp.getWidth(), temp.getHeight()).setState(rState);
+                    }
                 }
             }
         //hMap.printTiles2Console();
@@ -333,12 +342,21 @@ public class DStar extends Robot {
 
     @Override
     public void tick() {
-        if(at < pathStorage.size()) {
-            DNode next = nodes.get(pathStorage.get(at));
-            pos = new MPoint(next.posx, next.posy);
-            at++;
+        if (at < pathStorage.size()) {
             refreshView();
             updateDStar();
+            DNode next = nodes.get(pathStorage.get(at));
+            MPoint prev = new MPoint(pos);
+            pos = new MPoint(next.posx, next.posy);
+            at++;
+        }
+    }
+
+
+    public void printPathPlan(){
+        LogHelper.error("RECONSTRUCTION");
+        for (int i = 0; i < pathStorage.size(); i++) {
+            new MPoint(nodes.get(pathStorage.get(i)).posx, nodes.get(pathStorage.get(i)).posy).printPos((i == at) ? "----here!!\n" : "\n");
         }
     }
 
