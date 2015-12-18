@@ -8,7 +8,7 @@ public class DStar extends Robot {
 
     public DStar(MazeMap map, MPoint start, MPoint goal){
         super(map, start, goal, Tile.ROBO2);
-        radar = new MazeMap(Config.getFOV(), Config.getFOV());   // field of view: 5 wide 5 high
+        radar = new MazeMap(Config.getFOVSize(), Config.getFOVSize());   // field of view: 5 wide 5 high
     }
 
     public MazeMap getRadarView(){
@@ -17,7 +17,7 @@ public class DStar extends Robot {
 
 
     public void getView(){
-        radar = getRadar(Config.getFOV());
+        radar = getRadar();
         radar.printTiles2Console();
     }
 

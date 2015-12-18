@@ -21,6 +21,7 @@ public class TestClock {
 
         gui = new Gui(testChamber);
         A.calc();
+        D.getView();
         Clock.startClock();
     }
 

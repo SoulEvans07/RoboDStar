@@ -12,7 +12,7 @@ public class TestGui {
         //Clock.startClock();
 
         TestChamber testChamber = new TestChamber();
-        AStar A = new AStar(testChamber.getStart(), testChamber.getGoal());
+        AStar A = new AStar(testChamber.getChamber(), testChamber.getStart(), testChamber.getGoal());
         //Robot D = new DStar(testChamber.getStart(), testChamber.getGoal());
         testChamber.addRobot(A);
         //testChamber.addRobot(D);

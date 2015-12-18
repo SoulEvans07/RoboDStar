@@ -44,6 +44,9 @@ public class Tile {
             case GOAL:
                 ret = goalColor;
                 break;
+            case OUT:
+                ret = outColor;
+                break;
             default:
                 ret = new Color(0, 255 , 0);
                 break;
@@ -67,6 +70,9 @@ public class Tile {
     }
 
     public static final char START_CHAR = 'S';
+
+    public static final int OUT = -1;
+    public static final Color outColor = new Color(117, 0, 184);
 
     public static final int OBSTACLE = 0;
     public static final Color wallColor = new Color(43, 43, 43);

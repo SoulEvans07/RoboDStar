@@ -18,14 +18,19 @@ public abstract class Robot {
         hMap = new MazeMap(Config.getHeuriticMapPath());
     }
 
-    public MazeMap getRadar(int fov){
-        MazeMap radar = new MazeMap(fov, fov);
+    public MazeMap getRadar(){
+        MazeMap radar = new MazeMap(Config.getFOVSize(), Config.getFOVSize());
         MPoint temp;
-        for(int y = 0; y < fov; y++)
-            for(int x = 0; x < fov; x++) {
-                temp = new MPoint(pos.getWidth() - fov + x, pos.getHeight() - fov + y);
-                if(!hMap.isOut(temp))
-                    radar.add(hMap.getTile(pos.getWidth() - fov + x, pos.getHeight() - fov + y));
+        int fov = Config.getFOV();
+        for(int y = -fov; y <= fov; y++)
+            for(int x = -fov; x <= fov; x++) {
+                temp = new MPoint(pos.getWidth() + x, pos.getHeight() + y);
+                //temp.printPos(" x: " + x + " y: " + y + "\n");
+                if(!chamber.isOut(temp)) {
+                    radar.add(chamber.getTile(temp.getWidth(), temp.getHeight()));
+                } else{
+                    radar.add(new Tile(Tile.OUT));
+                }
             }
         return radar;
     }

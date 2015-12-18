@@ -32,4 +32,8 @@ public class Config{
     public static int getFOV(){
         return FOV;
     }
+
+    public static int getFOVSize(){
+        return FOV * 2 + 1;
+    }
 }
