@@ -16,14 +16,29 @@ public class DStar extends Robot {
     }
 
 
-    public void getView(){
+    public void refreshView(){
         radar = getRadar();
-        radar.printTiles2Console();
+        int fov = Config.getFOV();
+        MPoint temp;
+        int hState;
+        int rState;
+        for(int y = -fov; y <= fov; y++)
+            for(int x = -fov; x <= fov; x++) {
+                temp = new MPoint(pos.getWidth() + x, pos.getHeight() + y);
+                //temp.printPos(" x: " + x + " y: " + y + "\n");
+                if(!hMap.isOut(temp)) {
+                    hState = hMap.getTile(temp.getWidth(), temp.getHeight()).getState();
+                    rState = radar.getTile(x + fov, y + fov).getState();
+                    if(hState != rState)
+                        hMap.getTile(temp.getWidth(), temp.getHeight()).setState(rState);
+                }
+            }
+        //hMap.printTiles2Console();
     }
 
     @Override
     public void tick() {
-        // TODO: LATER!
+        refreshView();
     }
 
     @Override
