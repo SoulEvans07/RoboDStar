@@ -1,8 +1,10 @@
 package com.mi.robodstar.View;
 
+import Tests.Test;
 import com.mi.robodstar.Main;
 import com.mi.robodstar.Model.TestChamber;
 import com.mi.robodstar.Utility.GuiMagic;
+import com.mi.robodstar.Utility.LogHelper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,30 +14,46 @@ import java.awt.event.WindowEvent;
 public class Gui extends JFrame {
     private GamePanel gamePanel;
     private TestChamber testChamber;
-    //private MenuPanel menuPanel;
+    private MenuPanel menuPanel;
+    public Test test;
 
-    public Gui(TestChamber testChamber){
-        GuiMagic.setWindowTheme(GuiMagic.WIN_LOOKS);
-
-        this.testChamber = testChamber;
-        setVisible(true);
-        gamePanel = new GamePanel(this,testChamber);
-
-
-        GuiMagic.setFrameSize(this, gamePanel.getWidth(), gamePanel.getHeight()+this.getInsets().top);
+    public Gui(){
+        menuPanel = new MenuPanel(this);
         initFrame();
         setVisible(true);
     }
 
-    private void initFrame(){
-        this.setLayout(new BorderLayout());
+    public void setTest(Test test){
+        this.test=test;
+    }
 
+    public void loadGame(TestChamber testChamber){
+        if (gamePanel != null)
+            this.remove(gamePanel);
+        if (menuPanel != null)
+            this.remove(menuPanel);
+
+        menuPanel = new MenuPanel(this);
+        this.add(menuPanel, BorderLayout.NORTH);
+        this.testChamber = testChamber;
+        gamePanel = new GamePanel(this,testChamber);
+        this.add(gamePanel);
+        GuiMagic.setFrameSize(this, gamePanel.getWidth(), menuPanel.getPreferredSize().height+gamePanel.getHeight()+this.getInsets().top+5);
+        gamePanel.invalidate();
+        setVisible(true);
+    }
+
+    private void initFrame(){
+        GuiMagic.setWindowTheme(GuiMagic.WIN_LOOKS);
+        this.setLayout(new BorderLayout());
         this.setTitle("A* vs D*");
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new exitApp());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.setContentPane(gamePanel);
+        this.add(menuPanel, BorderLayout.NORTH);
+        GuiMagic.setFrameSize(this, menuPanel.getPreferredSize().width, menuPanel.getPreferredSize().height+this.getInsets().top+5);
+        invalidate();
     }
 
     public void tick(){

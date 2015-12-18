@@ -20,7 +20,7 @@ public class TestClock {
         testChamber.addRobot(A);
         testChamber.addRobot(D);
 
-        gui = new Gui(testChamber);
+        //gui = new Gui(testChamber);
         A.calc();
         D.startDStar();
         Clock.startClock();

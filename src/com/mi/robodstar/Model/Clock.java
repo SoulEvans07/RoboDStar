@@ -2,6 +2,7 @@ package com.mi.robodstar.Model;
 
 import Tests.TestClock;
 import com.mi.robodstar.Defaults.Reference;
+import com.mi.robodstar.Main;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,8 @@ public class Clock {
     private static void tick() {
         counter++;
         //TestGui.tick();
-        TestClock.tick();
+        //TestClock.tick();
+        Main.tick();
     }
 
     public static void set(){

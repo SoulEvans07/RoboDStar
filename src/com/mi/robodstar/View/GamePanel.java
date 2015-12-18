@@ -17,7 +17,6 @@ public class GamePanel extends JPanel {
         canvas = new MyCanvas(this, testChamber);
         this.add(canvas, BorderLayout.CENTER);
         canvas.paint(parent.getGraphics());
-        invalidate();
     }
 
     public void tick(){
