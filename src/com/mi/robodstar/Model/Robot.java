@@ -10,12 +10,12 @@ public abstract class Robot {
     private MazeMap chamber;  // actual map, private so the childes don't see it
     public int color;
 
-    public Robot(MazeMap map, MPoint sPos, MPoint gPos, int state){
+    public Robot(MazeMap map, String heuritic, MPoint sPos, MPoint gPos, int state){
         chamber = map;
         pos = sPos;
         goal = gPos;
         color = state;
-        hMap = new MazeMap(Config.getHeuriticMapPath());
+        hMap = new MazeMap(heuritic);
     }
 
     public MazeMap getRadar(){
@@ -25,7 +25,6 @@ public abstract class Robot {
         for(int y = -fov; y <= fov; y++)
             for(int x = -fov; x <= fov; x++) {
                 temp = new MPoint(pos.getWidth() + x, pos.getHeight() + y);
-                //temp.printPos(" x: " + x + " y: " + y + "\n");
                 if(!chamber.isOut(temp)) {
                     radar.add(chamber.getSimpleTile(temp.getWidth(), temp.getHeight()));
                 } else{

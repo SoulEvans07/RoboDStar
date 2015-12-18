@@ -11,7 +11,7 @@ public class Config{
 
     public static void setDefaults(){
         FOV = Reference.DEF_FOV;
-        C_HMAP_PATH = Reference.HMAP_PATH;
+        C_HMAP_PATH = Reference.HMAP1_PATH;
         C_MAP_PATH = Reference.MAP_PATH;
     }
 

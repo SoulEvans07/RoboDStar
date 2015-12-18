@@ -1,6 +1,7 @@
 package Tests;
 
 import com.mi.robodstar.Defaults.Config;
+import com.mi.robodstar.Defaults.Reference;
 import com.mi.robodstar.Model.AStar;
 import com.mi.robodstar.Model.Clock;
 import com.mi.robodstar.Model.DStar;
@@ -14,14 +15,14 @@ public class TestClock {
         Clock.set();
 
         TestChamber testChamber = new TestChamber();
-        AStar A = new AStar(testChamber.getChamber(), testChamber.getStart(), testChamber.getGoal());
-        DStar D = new DStar(testChamber.getChamber(), testChamber.getStart(), testChamber.getGoal());
+        AStar A = new AStar(testChamber.getChamber(), Reference.HMAP1_PATH, testChamber.getStart(), testChamber.getGoal());
+        DStar D = new DStar(testChamber.getChamber(), Reference.HMAP2_PATH, testChamber.getStart(), testChamber.getGoal());
         testChamber.addRobot(A);
         testChamber.addRobot(D);
 
         gui = new Gui(testChamber);
         A.calc();
-        D.refreshView();
+        D.startDStar();
         Clock.startClock();
     }
 

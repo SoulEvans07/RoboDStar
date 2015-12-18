@@ -49,6 +49,10 @@ public class Path {
             steps.get(i).printPos();
     }
 
+    public int getCost(){
+        return steps.size();
+    }
+
     public void printPath(){
         printPath(steps.size());
     }

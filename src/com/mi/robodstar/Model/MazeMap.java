@@ -97,8 +97,8 @@ public class MazeMap {
     }
 
     public boolean isOut(MPoint p){
-        boolean out = (p.getWidth() < 0) || (p.getWidth() > size.getWidth()) ||
-                        (p.getHeight() < 0) || (p.getHeight() > size.getHeight());
+        boolean out = (p.getWidth() < 0) || (size.getWidth() <= p.getWidth()) ||
+                        (p.getHeight() < 0) || (size.getHeight() <= p.getHeight());
         return out;
     }
 
