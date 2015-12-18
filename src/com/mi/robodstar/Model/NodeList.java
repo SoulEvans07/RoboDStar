@@ -53,6 +53,7 @@ public class NodeList {
         sort();
     }
 
+
     public boolean contains(MPoint pos){
         for(Node node : nodes)
             if(node.pos.equals(pos)) {

@@ -11,6 +11,7 @@ public class Node implements Comparable {
     public int steps;   // steps to get to this node
     public Node parent;
 
+
     public Node(MPoint p){
         pos = p;
     }
