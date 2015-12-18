@@ -25,6 +25,7 @@ public class TestChamber {
     public void addRobot(Robot r){
         robots.add(r);
         chamber.getTile(r.pos.getWidth(),r.pos.getHeight()).steppedOn(r.color);
+        r.getHmap().getTile(r.pos.getWidth(),r.pos.getHeight()).steppedOn(r.color);
     }
 
     public ArrayList<Robot> getRobots(){
@@ -46,10 +47,12 @@ public class TestChamber {
     public void tick() {
         for(Robot r : robots) {
             chamber.getTile(r.pos.getWidth(), r.pos.getHeight()).fade();
+            r.getHmap().getTile(r.pos.getWidth(), r.pos.getHeight()).fade();
         }
         for(Robot r : robots) {
             r.tick();
             chamber.getTile(r.pos.getWidth(), r.pos.getHeight()).steppedOn(r.color);
+            r.getHmap().getTile(r.pos.getWidth(), r.pos.getHeight()).steppedOn(r.color);
         }
 
         /*

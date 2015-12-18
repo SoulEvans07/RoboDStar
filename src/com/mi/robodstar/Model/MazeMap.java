@@ -148,6 +148,13 @@ public class MazeMap {
         return tiles.get(y * size.getWidth() + x);
     }
 
+    public Tile getSimpleTile(int x, int y){
+        Tile t = new Tile(tiles.get(y * size.getWidth() + x).getState());
+        if(t.getState() > Tile.FREE)
+            t.setState(Tile.FREE);
+        return t;
+    }
+
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     public void printMap2Console(){

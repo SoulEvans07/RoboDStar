@@ -27,12 +27,16 @@ public abstract class Robot {
                 temp = new MPoint(pos.getWidth() + x, pos.getHeight() + y);
                 //temp.printPos(" x: " + x + " y: " + y + "\n");
                 if(!chamber.isOut(temp)) {
-                    radar.add(chamber.getTile(temp.getWidth(), temp.getHeight()));
+                    radar.add(chamber.getSimpleTile(temp.getWidth(), temp.getHeight()));
                 } else{
                     radar.add(new Tile(Tile.OUT));
                 }
             }
         return radar;
+    }
+
+    public MazeMap getHmap(){
+        return hMap;
     }
 
     public abstract void tick();
