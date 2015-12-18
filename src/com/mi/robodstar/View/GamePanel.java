@@ -21,8 +21,7 @@ public class GamePanel extends JPanel {
     }
 
     public void tick(){
-        canvas.paint(parent.getGraphics());
-        revalidate();
+        canvas.repaint();
     }
 
     public int getWidth(){

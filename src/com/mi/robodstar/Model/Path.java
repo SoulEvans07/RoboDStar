@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class Path {
     private MPoint size;
-    private ArrayList<Node> steps;
+    private ArrayList<MPoint> steps;
     private ArrayList<Boolean> path;
 
-    public Path(Node goal, MPoint size){
+    public Path(Node goal, MPoint size, MPoint pos){
         this.size = size;
         this.steps = new ArrayList<>();
         this.path = new ArrayList<>();
@@ -26,7 +26,7 @@ public class Path {
         }
 
         for(int i = t.size()-1; i >= 0; i--)
-            steps.add(t.get(i));
+            steps.add(new MPoint(t.get(i).pos));
     }
 
     public ArrayList<Boolean> getSolution(){
@@ -34,17 +34,22 @@ public class Path {
     }
 
     public MPoint getNext(MPoint pos){
-        for(Node n : steps){
-            if(n.pos.equals(pos))
-                if(steps.indexOf(n)+1 < steps.size())
-                return steps.get(steps.indexOf(n)+1).pos;
+        for(int i = 0; i < steps.size(); i++){
+            if(steps.get(i).equals(pos))
+                if(i+1 < steps.size()) {
+                    return steps.get(i + 1);
+                }
         }
         return null;
     }
 
 
+    public void printPath(int to){
+        for(int i = 0; i < steps.size() && i < to; i++)
+            steps.get(i).printPos();
+    }
+
     public void printPath(){
-        for(Node n : steps)
-            System.out.println("[" + n.pos.getWidth() + ", " + n.pos.getHeight() + "]");
+        printPath(steps.size());
     }
 }

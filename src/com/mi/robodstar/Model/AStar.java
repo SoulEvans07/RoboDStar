@@ -19,7 +19,7 @@ public class AStar extends Robot {
     private Path path;
 
     public AStar(MPoint start, MPoint goal){
-        super(start, goal);
+        super(start, goal, Tile.ROBO1);
         initHeuristics();
 
         pathBool = new ArrayList<>();
@@ -47,7 +47,7 @@ public class AStar extends Robot {
             Node n = open.get(0);   // sorted list, first is the lowest cost
 
             if(n.pos.equals(goal))
-                return new Path(n, hMap.getSize());
+                return new Path(n, hMap.getSize(), pos);
             open.remove(n);
             closed.add(n);
 
@@ -180,9 +180,9 @@ public class AStar extends Robot {
     @Override
     public void tick() {
         MPoint temp = path.getNext(pos);
-        if(temp != null)
+        if(temp != null) {
             pos = temp;
-        else if(pos.equals(goal)) {
+        } else if(pos.equals(goal)) {
             LogHelper.inline("WIN");
             Clock.stopClock();
         } else

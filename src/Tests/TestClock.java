@@ -3,6 +3,7 @@ package Tests;
 import com.mi.robodstar.Defaults.Config;
 import com.mi.robodstar.Model.AStar;
 import com.mi.robodstar.Model.Clock;
+import com.mi.robodstar.Model.DStar;
 import com.mi.robodstar.Model.TestChamber;
 import com.mi.robodstar.View.Gui;
 
@@ -14,9 +15,9 @@ public class TestClock {
 
         TestChamber testChamber = new TestChamber();
         AStar A = new AStar(testChamber.getStart(), testChamber.getGoal());
-        //Robot D = new DStar(testChamber.getStart(), testChamber.getGoal());
+        DStar D = new DStar(testChamber.getStart(), testChamber.getGoal());
         testChamber.addRobot(A);
-        //testChamber.addRobot(D);
+        testChamber.addRobot(D);
 
         gui = new Gui(testChamber);
         A.calc();

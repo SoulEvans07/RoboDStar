@@ -4,6 +4,7 @@ import java.awt.*;
 
 public class Tile {
     private int state;
+    private int fade;
 
     public Tile(int startState){
         state = startState;
@@ -50,6 +51,21 @@ public class Tile {
         return ret;
     }
 
+    public void steppedOn(int who){
+        if(state > 0) {
+            if(state > 1)
+                fade = JOINT_TRACE;
+            else
+                fade = who-1;
+            state = who;
+        }
+    }
+
+    public void fade(){
+        if(state > 1 && state < 6)
+            state = fade;
+    }
+
     public static final char START_CHAR = 'S';
 
     public static final int OBSTACLE = 0;
@@ -60,17 +76,17 @@ public class Tile {
     public static final Color freeColor = new Color(238,236,225);
     public static final char FREE_CHAR = '_';
 
-    public static final int ROBO1 = 2;
-    public static final Color robo1Color = new Color(255, 0, 0);
-
-    public static final int ROBO1_TRACE = 3;
+    public static final int ROBO1_TRACE = 2;
     public static final Color robo1TraceColor = new Color(255, 160, 160);
 
-    public static final int ROBO2 = 4;
-    public static final Color robo2Color = new Color(0, 0, 255);
+    public static final int ROBO1 = 3;
+    public static final Color robo1Color = new Color(255, 0, 0);
 
-    public static final int ROBO2_TRACE = 5;
+    public static final int ROBO2_TRACE = 4;
     public static final Color robo2TraceColor = new Color(160, 160, 255);
+
+    public static final int ROBO2 = 5;
+    public static final Color robo2Color = new Color(0, 0, 255);
 
     public static final int JOINT_TRACE = 6;
     public static final Color jointTraceColor = new Color(211, 151, 255);

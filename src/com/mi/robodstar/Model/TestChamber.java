@@ -24,14 +24,7 @@ public class TestChamber {
 
     public void addRobot(Robot r){
         robots.add(r);
-
-        int index = robots.indexOf(r);
-        if (index == 0){
-            chamber.getTile(r.pos.getWidth(),r.pos.getHeight()).setState(Tile.ROBO1);
-        }
-        if (index == 1){
-            chamber.getTile(r.pos.getWidth(),r.pos.getHeight()).setState(Tile.ROBO2);
-        }
+        chamber.getTile(r.pos.getWidth(),r.pos.getHeight()).steppedOn(r.color);
     }
 
     public ArrayList<Robot> getRobots(){
@@ -51,6 +44,15 @@ public class TestChamber {
     }
 
     public void tick() {
+        for(Robot r : robots) {
+            chamber.getTile(r.pos.getWidth(), r.pos.getHeight()).fade();
+        }
+        for(Robot r : robots) {
+            r.tick();
+            chamber.getTile(r.pos.getWidth(), r.pos.getHeight()).steppedOn(r.color);
+        }
+
+        /*
         for(Robot r : robots)
             r.tick();
 
@@ -69,6 +71,6 @@ public class TestChamber {
             if (i == 1){
                 chamber.getTile(robots.get(i).pos.getWidth(),robots.get(i).pos.getHeight()).setState(Tile.ROBO2);
             }
-        }
+        }*/
     }
 }

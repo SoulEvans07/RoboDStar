@@ -54,7 +54,7 @@ public class MPoint {
     }
 
     public void printPos(){
-        printPos("");
+        printPos("\n");
     }
 
 

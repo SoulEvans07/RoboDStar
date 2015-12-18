@@ -41,8 +41,6 @@ public class Gui extends JFrame {
     public void tick(){
         testChamber.tick();
         gamePanel.tick();
-        //TODO: make better
-        this.setContentPane(gamePanel);
     }
 
     private class exitApp extends WindowAdapter {
