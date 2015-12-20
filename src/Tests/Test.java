@@ -11,21 +11,53 @@ import com.mi.robodstar.View.Gui;
 public class Test {
     public static Gui gui;
     private TestChamber testChamber;
-    public Test(){
+
+    public Test() {
 
     }
 
-        public void startTest1(){
-            Config.setDefaults();
-            Clock.stopClock();
-            testChamber = new TestChamber();
-            AStar A = new AStar(testChamber.getChamber(), Reference.HMAP1_PATH, testChamber.getStart(), testChamber.getGoal());
-            DStar D = new DStar(testChamber.getChamber(), Reference.HMAP2_PATH, testChamber.getStart(), testChamber.getGoal());
-            testChamber.addRobot(A);
-            testChamber.addRobot(D);
-            gui.loadGame(testChamber);
-            A.calc();
-            D.startDStar();
-            Clock.startClock();
-        }
+    // foutvonalas
+    public void startTest1() {
+        Config.setDefaults();
+        Clock.stopClock();
+        testChamber = new TestChamber(2);
+        AStar A = new AStar(testChamber.getChamber(), Reference.HMAP5_PATH, testChamber.getStart(), testChamber.getGoal());
+        DStar D = new DStar(testChamber.getChamber(), Reference.HMAP2_PATH, testChamber.getStart(), testChamber.getGoal());
+        testChamber.addRobot(A);
+        testChamber.addRobot(D);
+        gui.loadGame(testChamber);
+        A.calc();
+        D.refreshView();
+        D.startDStar();
+        Clock.startClock();
+    }
+
+    // null heuristika
+    public void startTest2() {
+        Config.setDefaults();
+        Clock.stopClock();
+        testChamber = new TestChamber(1);
+        AStar A = new AStar(testChamber.getChamber(), Reference.MAP1_PATH, testChamber.getStart(), testChamber.getGoal());
+        DStar D = new DStar(testChamber.getChamber(), Reference.HMAP2_PATH, testChamber.getStart(), testChamber.getGoal());
+        testChamber.addRobot(A);
+        testChamber.addRobot(D);
+        gui.loadGame(testChamber);
+        A.calc();
+        D.startDStar();
+        Clock.startClock();
+    }
+/*
+    public void startTest3() {
+        Config.setDefaults();
+        Clock.stopClock();
+        testChamber = new TestChamber();
+        AStar A = new AStar(testChamber.getChamber(), Reference.HMAP1_PATH, testChamber.getStart(), testChamber.getGoal());
+        DStar D = new DStar(testChamber.getChamber(), Reference.HMAP2_PATH, testChamber.getStart(), testChamber.getGoal());
+        testChamber.addRobot(A);
+        testChamber.addRobot(D);
+        gui.loadGame(testChamber);
+        A.calc();
+        D.startDStar();
+        Clock.startClock();
+    }*/
 }

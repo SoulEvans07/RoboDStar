@@ -12,7 +12,7 @@ public class Config{
     public static void setDefaults(){
         FOV = Reference.DEF_FOV;
         C_HMAP_PATH = Reference.HMAP1_PATH;
-        C_MAP_PATH = Reference.MAP_PATH;
+        C_MAP_PATH = Reference.MAP1_PATH;
     }
 
     // TODO: after this reload maps
@@ -21,11 +21,27 @@ public class Config{
         C_MAP_PATH = pathM;
     }
 
-    public static String getHeuriticMapPath(){
+    public static String getHeuriticMapPath(int i){
+        switch (i){
+            case 1:
+                return Reference.HMAP1_PATH;
+            case 2:
+                return Reference.HMAP2_PATH;
+            case 3:
+                return Reference.HMAP3_PATH;
+            case 4:
+                return Reference.HMAP4_PATH;
+        }
         return C_HMAP_PATH;
     }
 
-    public static String getMapPath(){
+    public static String getMapPath(int i){
+        switch (i){
+            case 1:
+                return Reference.MAP1_PATH;
+            case 2:
+                return Reference.MAP2_PATH;
+        }
         return C_MAP_PATH;
     }
 

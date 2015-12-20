@@ -14,7 +14,7 @@ public class TestClock {
         Config.setDefaults();
         Clock.set();
 
-        TestChamber testChamber = new TestChamber();
+        TestChamber testChamber = new TestChamber(1);
         AStar A = new AStar(testChamber.getChamber(), Reference.HMAP1_PATH, testChamber.getStart(), testChamber.getGoal());
         DStar D = new DStar(testChamber.getChamber(), Reference.HMAP2_PATH, testChamber.getStart(), testChamber.getGoal());
         testChamber.addRobot(A);

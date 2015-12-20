@@ -1,7 +1,5 @@
 package com.mi.robodstar.View;
 
-import Tests.Test;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,10 +17,7 @@ public class MenuPanel extends JPanel{
         test1.addActionListener(new test1Action());
 
         test2 = new JButton("Test 2");
-        test2.addActionListener(new test1Action());
-
-        test3 = new JButton("Test 3");
-        test3.addActionListener(new test1Action());
+        test2.addActionListener(new test2Action());
 
         initLayout();
     }
@@ -34,7 +29,6 @@ public class MenuPanel extends JPanel{
 
         this.add(test2, FlowLayout.CENTER);
 
-        this.add(test3, FlowLayout.RIGHT);
 
     }
 
@@ -43,6 +37,13 @@ public class MenuPanel extends JPanel{
         @Override
         public void actionPerformed(ActionEvent e) {
             parent.test.startTest1();
+        }
+    }
+
+    private class test2Action implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            parent.test.startTest2();
         }
     }
 

@@ -29,6 +29,7 @@ public class AStar extends Robot {
 
     public void calc(){
         path = algorithmV2();
+        LogHelper.comment("A* steps: " + path.steps.size());
     }
 
     public Path algorithmV2(){
@@ -43,7 +44,7 @@ public class AStar extends Robot {
         open.add(start);
 
         while(open.size() > 0){
-            Node n = open.get(0);   // sorted list, first is the lowest cost
+            Node n = new Node(open.get(0));   // sorted list, first is the lowest cost
 
             if(n.pos.equals(goal))
                 return new Path(n, hMap.getSize(), pos);

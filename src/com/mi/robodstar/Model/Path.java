@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Path {
     private MPoint size;
-    private ArrayList<MPoint> steps;
+    public ArrayList<MPoint> steps;
     private ArrayList<Boolean> path;
 
     public Path(Node goal, MPoint size, MPoint pos){

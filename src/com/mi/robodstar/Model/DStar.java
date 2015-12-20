@@ -21,6 +21,7 @@ public class DStar extends Robot {
     private ArrayList<Integer> openNodes;
     private ArrayList<Integer> closedNodes;
     private ArrayList<Integer> updatedNodes;    // List_Of_Updated
+    private MazeMap map;
 
     private int width;
     private int height;
@@ -31,6 +32,7 @@ public class DStar extends Robot {
         super(map, heuritic, start, goal, Tile.ROBO2);
         radar = new MazeMap(Config.getFOVSize(), Config.getFOVSize());   // field of view: 5 wide 5 high
 
+        this.map = map;
         width = map.getSize().getWidth();
         height = map.getSize().getHeight();
         infiniteValue = width * height + 1;
@@ -58,9 +60,11 @@ public class DStar extends Robot {
                     goalID = temp.ID;
 
                 temp.gScore = 0;
-                temp.obstacle = !hMap.isFree(new MPoint(x, y));
+                temp.obstacle = false; // !hMap.isFree(new MPoint(x, y));
                 temp.pathNode = false;
                 temp.tag = DNode.NEW;
+                temp.hValue = 0;
+                temp.key = 0;
                 temp.backPointer = -1;
                 nodes.add(temp);
                 //LogHelper.line(x + " " + y + " id: " + temp.ID);
@@ -92,6 +96,53 @@ public class DStar extends Robot {
             Process_Result = PROCESS_STATE();
         }
         RECONSTRUCTION(startID);
+    }
+
+    public void restartNodes(){
+        at = 1;
+        pathStorage.clear();
+        insertedList.clear();
+        reCalculatedNode.clear();
+        openList.clear();
+        openNodes.clear();
+        closedNodes.clear();
+        for (int y = 0; y < map.getSize().getHeight(); y++) {
+            for (int x = 0; x < map.getSize().getWidth(); x++) {
+                DNode temp = new DNode();
+                temp.posx = x;
+                temp.posy = y;
+                temp.ID = y * width + x;
+
+                if (pos.equals(new MPoint(x, y)))
+                    startID = temp.ID;
+                if (goal.equals(new MPoint(x, y)))
+                    goalID = temp.ID;
+
+                temp.gScore = 0;
+                temp.obstacle = !hMap.isFree(new MPoint(x, y));
+                temp.pathNode = false;
+                temp.tag = DNode.NEW;
+                temp.backPointer = -1;
+                temp.hValue = 0;
+                temp.key = 0;
+                nodes.add(temp);
+                //LogHelper.line(x + " " + y + " id: " + temp.ID);
+            }
+        }
+
+        nodes.get(goalID).hValue = 0;
+        INSERT(goalID, nodes.get(goalID).hValue);
+        double Process_Result = 0;
+        while (Process_Result > -1) //&& Node[Start_ID].Tag != "CLOSED")
+        {
+            Process_Result = PROCESS_STATE();
+        }
+        RECONSTRUCTION(startID);
+        /*for (int k = 0; k < pathStorage.size(); k++)
+            if (pos.getHeight() * width + pos.getWidth() == pathStorage.get(k)) {
+                startID = pathStorage.get(k + 1);
+                at = 0;
+            } */
     }
 
 
@@ -191,8 +242,8 @@ public class DStar extends Robot {
         return neighbours;
     }
 
-    public void updateArcCost(int nodeID) {
-        for (int i = 0; i < pathStorage.size(); i++) {
+    public void updateArcCost(int nodeID, double cVal) {
+        /*for (int i = 0; i < pathStorage.size(); i++) {
             if (nodeID == pathStorage.get(i)) {
                 for(int k = 0; k < i; k++)
                     if(pos.getHeight() * width + pos.getWidth() == pathStorage.get(k))
@@ -201,24 +252,37 @@ public class DStar extends Robot {
                 i--;
                 at = 0;
             }
+        }*/
+        for (int k = 0; k < pathStorage.size(); k++)
+            if (pos.getHeight() * width + pos.getWidth() == pathStorage.get(k)) {
+                startID = pathStorage.get(k + 1);
+                at = 0;
+            }
+        nodes.get(nodeID).tag = DNode.NEW;
+        if (cVal == infiniteValue)
+            nodes.get(nodeID).obstacle = true;
+        else {
+            nodes.get(nodeID).obstacle = false;
         }
-        int cVal = infiniteValue;
         MODIFY_COST(nodeID, cVal);
-        nodes.get(nodeID).obstacle = true;
+
     }
 
 
-    private double MODIFY_COST(int X, int cVal) {
-        if (nodes.get(X).tag == DNode.CLOSED) {
-            //X is changed from a normal Node to an Obstacle node
-            int hValue = cVal;
-            INSERT(X, hValue);
-        }
+    private double MODIFY_COST(int X, double cVal) {
+        //if (nodes.get(X).tag != DNode.NEW) {
+        //X is changed from a normal Node to an Obstacle node
+        //LogHelper.error("next " + GET_KMIN());
+        MIN_STATE();
+        double hValue = cVal;
+        INSERT(X, hValue);
+        //}
         return GET_KMIN();
     }
 
     private int MIN_STATE() {
         if (openList.size() > 0) {
+            //LogHelper.line("MIN STATE: [" + nodes.get(openList.get(0)).posx + ", " + nodes.get(openList.get(0)).posy + "]");
             return openList.get(0);
         } else
             return -1;
@@ -323,6 +387,7 @@ public class DStar extends Robot {
         MPoint temp;
         int hState;
         int rState;
+        int rNode;
         for (int y = -fov; y <= fov; y++)
             for (int x = -fov; x <= fov; x++) {
                 temp = new MPoint(pos.getWidth() + x, pos.getHeight() + y);
@@ -330,30 +395,48 @@ public class DStar extends Robot {
                     hState = hMap.getTile(temp.getWidth(), temp.getHeight()).getState();
                     rState = radar.getTile(x + fov, y + fov).getState();
                     if (hState != rState) {
-                        if (rState == Tile.OBSTACLE) {
-                            updateArcCost(temp.getHeight() * width + temp.getWidth());
-                        }
                         hMap.getTile(temp.getWidth(), temp.getHeight()).setState(rState);
+                        rNode = temp.getHeight() * width + temp.getWidth();
+                        if (rState == Tile.OBSTACLE) {
+                            updateArcCost(rNode, infiniteValue);
+                        } else {
+                            if (hState == Tile.OBSTACLE) {
+                                double hNew = nodes.get(pos.getHeight() * width + pos.getWidth()).hValue + -2;
+                                //temp.printPos(" obst->free " + nodes.get(rNode).key + " ->" + hNew + "\n");
+                                //updateArcCost(rNode, hNew);
+                                restartNodes();
+                                //updateDStar();
+                            }
+                        }
+                        //updateDStar();
                     }
                 }
             }
         //hMap.printTiles2Console();
     }
 
+    public int steps = 0;
+    private boolean printed = false;
+
     @Override
     public void tick() {
         if (at < pathStorage.size()) {
             refreshView();
+
             updateDStar();
             DNode next = nodes.get(pathStorage.get(at));
             MPoint prev = new MPoint(pos);
             pos = new MPoint(next.posx, next.posy);
             at++;
+            steps++;
+        } else if (!printed) {
+            LogHelper.comment("D* steps: " + steps);
+            printed = true;
         }
     }
 
 
-    public void printPathPlan(){
+    public void printPathPlan() {
         LogHelper.error("RECONSTRUCTION");
         for (int i = 0; i < pathStorage.size(); i++) {
             new MPoint(nodes.get(pathStorage.get(i)).posx, nodes.get(pathStorage.get(i)).posy).printPos((i == at) ? "----here!!\n" : "\n");

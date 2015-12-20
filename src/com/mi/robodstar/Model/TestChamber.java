@@ -11,9 +11,9 @@ public class TestChamber {
     private MPoint goal;
     private MPoint startPoint;
 
-    public TestChamber(){
+    public TestChamber(int test){
         robots = new ArrayList<>();
-        chamber = new MazeMap(Config.getMapPath()); // init map
+        chamber = new MazeMap(Config.getMapPath(test)); // init map
         goal = chamber.searchPoint(Tile.GOAL_CHAR);
         startPoint = chamber.searchPoint(Tile.START_CHAR);
     }

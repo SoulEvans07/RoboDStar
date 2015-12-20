@@ -42,12 +42,6 @@ public class MPoint {
         this.height = height;
         return null;
     }
-/*
-    public boolean equals(MPoint mPoint){
-        return (mPoint.getWidth() == width) && (mPoint.getHeight() == height);
-    }
-*/
-
 
     public void printPos(String end){
         System.out.print("[" + width + ", " + height + "]" + end);
