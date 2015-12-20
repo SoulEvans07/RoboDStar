@@ -19,10 +19,10 @@ public class Reference {
     public static final String MAP2_PATH = "/assets/map2.txt";
 
     // Default configurations
-    public static final int DEF_FOV = 6;
+    public static final int DEF_FOV = 14;
     public static final int STEP = 1;
 
     // Clock configurations
-    public static final int TIMER_TICK = 200; // means the clock is on 1 tick/second
+    public static final int TIMER_TICK = 100; // means the clock is on 1 tick/second
 
 }

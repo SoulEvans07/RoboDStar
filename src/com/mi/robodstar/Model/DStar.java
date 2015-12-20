@@ -430,7 +430,7 @@ public class DStar extends Robot {
             at++;
             steps++;
         } else if (!printed) {
-            LogHelper.comment("D* steps: " + steps);
+            LogHelper.comment("D* steps: " + steps+1);
             printed = true;
         }
     }
