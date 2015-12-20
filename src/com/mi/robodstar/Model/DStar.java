@@ -404,7 +404,7 @@ public class DStar extends Robot {
                                 double hNew = nodes.get(pos.getHeight() * width + pos.getWidth()).hValue + -2;
                                 //temp.printPos(" obst->free " + nodes.get(rNode).key + " ->" + hNew + "\n");
                                 //updateArcCost(rNode, hNew);
-                                restartNodes();
+                                //restartNodes();
                                 //updateDStar();
                             }
                         }
